@@ -35,28 +35,28 @@ namespace anton::math {
             return (f32 const*)rows;
         }
 
-        Matrix2& Matrix2::operator+=(f32 const a) {
+        Matrix2& operator+=(f32 const a) {
             for (i32 i = 0; i < 4; ++i) {
                 rows[i] += a;
             }
             return *this;
         }
 
-        Matrix2& Matrix2::operator-=(f32 const a) {
+        Matrix2& operator-=(f32 const a) {
             for (i32 i = 0; i < 4; ++i) {
                 rows[i] -= a;
             }
             return *this;
         }
 
-        Matrix2& Matrix2::operator*=(f32 const a) {
+        Matrix2& operator*=(f32 const a) {
             for (i32 i = 0; i < 4; ++i) {
                 rows[i] *= a;
             }
             return *this;
         }
 
-        Matrix2& Matrix2::operator/=(f32 const a) {
+        Matrix2& operator/=(f32 const a) {
             for (i32 i = 0; i < 4; ++i) {
                 rows[i] /= a;
             }

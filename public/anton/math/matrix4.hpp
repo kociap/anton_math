@@ -35,28 +35,28 @@ namespace anton::math {
             return (f32 const*)rows;
         }
 
-        Matrix4& Matrix4::operator+=(f32 const a) {
+        Matrix4& operator+=(f32 const a) {
             for (i32 i = 0; i < 4; ++i) {
                 rows[i] += a;
             }
             return *this;
         }
 
-        Matrix4& Matrix4::operator-=(f32 const a) {
+        Matrix4& operator-=(f32 const a) {
             for (i32 i = 0; i < 4; ++i) {
                 rows[i] -= a;
             }
             return *this;
         }
 
-        Matrix4& Matrix4::operator*=(f32 const a) {
+        Matrix4& operator*=(f32 const a) {
             for (i32 i = 0; i < 4; ++i) {
                 rows[i] *= a;
             }
             return *this;
         }
 
-        Matrix4& Matrix4::operator/=(f32 const a) {
+        Matrix4& operator/=(f32 const a) {
             for (i32 i = 0; i < 4; ++i) {
                 rows[i] /= a;
             }
@@ -69,34 +69,6 @@ namespace anton::math {
 
     inline Matrix4 const Matrix4::zero = Matrix4();
     inline Matrix4 const Matrix4::identity = Matrix4{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};
-
-    inline Matrix4& operator+=(Matrix4& m, f32 const a) {
-        for (i32 i = 0; i < 4; ++i) {
-            m.rows[i] += a;
-        }
-        return m;
-    }
-
-    inline Matrix4& operator-=(Matrix4& m, f32 const a) {
-        for (i32 i = 0; i < 4; ++i) {
-            m.rows[i] -= a;
-        }
-        return m;
-    }
-
-    inline Matrix4& operator*=(Matrix4& m, f32 const a) {
-        for (i32 i = 0; i < 4; ++i) {
-            m.rows[i] *= a;
-        }
-        return m;
-    }
-
-    inline Matrix4& operator/=(Matrix4& m, f32 const a) {
-        for (i32 i = 0; i < 4; ++i) {
-            m.rows[i] /= a;
-        }
-        return m;
-    }
 
     inline Matrix4 operator+(Matrix4 m, f32 const a) {
         m += a;

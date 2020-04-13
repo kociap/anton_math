@@ -19,20 +19,20 @@ namespace anton::math {
     }
 
     inline Matrix4 rotate_x(f32 angle) {
-        f32 sin_val = sinf(angle);
-        f32 cos_val = cosf(angle);
+        f32 sin_val = math::sin(angle);
+        f32 cos_val = math::cos(angle);
         return {{1, 0, 0, 0}, {0, cos_val, -sin_val, 0}, {0, sin_val, cos_val, 0}, {0, 0, 0, 1}};
     }
 
     inline Matrix4 rotate_y(f32 angle) {
-        f32 sin_val = sinf(angle);
-        f32 cos_val = cosf(angle);
+        f32 sin_val = math::sin(angle);
+        f32 cos_val = math::cos(angle);
         return {{cos_val, 0, sin_val, 0}, {0, 1, 0, 0}, {-sin_val, 0, cos_val, 0}, {0, 0, 0, 1}};
     }
 
     inline Matrix4 rotate_z(f32 angle) {
-        f32 sin_val = sinf(angle);
-        f32 cos_val = cosf(angle);
+        f32 sin_val = math::sin(angle);
+        f32 cos_val = math::cos(angle);
         return {{cos_val, -sin_val, 0, 0}, {sin_val, cos_val, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};
     }
 

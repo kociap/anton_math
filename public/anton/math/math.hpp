@@ -318,6 +318,6 @@ namespace anton::math {
     //         return 19;
     //     return 20;
     // }
-
 } // namespace anton::math
+
 #endif // !ANTON_MATH_MATH_HPP_INCLUDE
