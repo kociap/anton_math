@@ -6,65 +6,89 @@
 #include <anton/math/detail/utility.hpp>
 
 namespace anton::math {
-    // Row major
+    // Column major
     class Matrix3 {
     public:
         static Matrix3 const zero;
         static Matrix3 const identity;
 
-        Matrix3(): rows{} {}
-        Matrix3(Vector3 const a, Vector3 const b, Vector3 const c): rows{a, b, c} {}
+        Matrix3(): columns{} {}
+        Matrix3(Vector3 const a, Vector3 const b, Vector3 const c): columns{a, b, c} {}
 
-        Vector3& operator[](i32 row) {
-            return rows[row];
+        Vector3& operator[](i32 column) {
+            return columns[column];
         }
 
-        Vector3 operator[](i32 row) const {
-            return rows[row];
+        Vector3 operator[](i32 column) const {
+            return columns[column];
         }
 
-        f32& operator()(i32 const row, i32 const column) {
-            return rows[row][column];
+        f32& operator()(i32 const column, i32 const row) {
+            return columns[column][row];
         }
 
-        f32 operator()(i32 const row, i32 const column) const {
-            return rows[row][column];
+        f32 operator()(i32 const column, i32 const row) const {
+            return columns[column][row];
         }
 
         f32 const* get_raw() const {
-            return (f32 const*)rows;
+            return (f32 const*)columns;
         }
 
-        Matrix3& operator+=(f32 a) {
-            for (i32 i = 0; i < 3; ++i) {
-                rows[i] += a;
-            }
+        Matrix3& operator+=(f32 const a) {
+            columns[0] += a;
+            columns[1] += a;
+            columns[2] += a;
             return *this;
         }
 
-        Matrix3& operator-=(f32 a) {
-            for (i32 i = 0; i < 3; ++i) {
-                rows[i] -= a;
-            }
+        Matrix3& operator-=(f32 const a) {
+            columns[0] -= a;
+            columns[1] -= a;
+            columns[2] -= a;
             return *this;
         }
 
-        Matrix3& operator*=(f32 num) {
-            for (i32 i = 0; i < 3; ++i) {
-                rows[i] *= num;
-            }
+        Matrix3& operator*=(f32 const a) {
+            columns[0] *= a;
+            columns[1] *= a;
+            columns[2] *= a;
             return *this;
         }
 
-        Matrix3& operator/=(f32 num) {
+        Matrix3& operator/=(f32 const a) {
+            columns[0] /= a;
+            columns[1] /= a;
+            columns[2] /= a;
+            return *this;
+        }
+
+        Matrix3& operator+=(Matrix3 const m) {
+            columns[0] += m.columns[0];
+            columns[1] += m.columns[1];
+            columns[2] += m.columns[2];
+            return *this;
+        }
+
+        Matrix3& operator-=(Matrix3 const m) {
+            columns[0] -= m.columns[0];
+            columns[1] -= m.columns[1];
+            columns[2] -= m.columns[2];
+            return *this;
+        }
+
+        Matrix3& operator*=(Matrix3 const rhs) {
+            Matrix3 const lhs = *this;
             for (i32 i = 0; i < 3; ++i) {
-                rows[i] /= num;
+                (*this)[i][0] = rhs[i][0] * lhs[0][0] + rhs[i][1] * lhs[1][0] + rhs[i][2] * lhs[2][0];
+                (*this)[i][1] = rhs[i][0] * lhs[0][1] + rhs[i][1] * lhs[1][1] + rhs[i][2] * lhs[2][1];
+                (*this)[i][2] = rhs[i][0] * lhs[0][2] + rhs[i][1] * lhs[1][2] + rhs[i][2] * lhs[2][2];
             }
             return *this;
         }
 
     private:
-        Vector3 rows[3];
+        Vector3 columns[3];
     };
 
     inline Matrix3 const Matrix3::zero = Matrix3();
@@ -90,33 +114,26 @@ namespace anton::math {
         return m;
     }
 
-    inline Matrix3 operator+(Matrix3 const a, Matrix3 const b) {
-        return {{a[0][0] + b[0][0], a[0][1] + b[0][1], a[0][2] + b[0][2]},
-                {a[1][0] + b[1][0], a[1][1] + b[1][1], a[1][2] + b[1][2]},
-                {a[2][0] + b[2][0], a[2][1] + b[2][1], a[2][2] + b[2][2]}};
+    inline Matrix3 operator+(Matrix3 lhs, Matrix3 const rhs) {
+        lhs += rhs;
+        return lhs;
     }
 
-    inline Matrix3 operator-(Matrix3 const a, Matrix3 const b) {
-        return {{a[0][0] - b[0][0], a[0][1] - b[0][1], a[0][2] - b[0][2]},
-                {a[1][0] - b[1][0], a[1][1] - b[1][1], a[1][2] - b[1][2]},
-                {a[2][0] - b[2][0], a[2][1] - b[2][1], a[2][2] - b[2][2]}};
+    inline Matrix3 operator-(Matrix3 lhs, Matrix3 const rhs) {
+        lhs -= rhs;
+        return lhs;
     }
 
-    inline Matrix3 operator*(Matrix3 const lhs, Matrix3 const rhs) {
-        Matrix3 r;
-        for (i32 i = 0; i < 3; ++i) {
-            r[i][0] = lhs[i][0] * rhs[0][0] + lhs[i][1] * rhs[1][0] + lhs[i][2] * rhs[2][0];
-            r[i][1] = lhs[i][0] * rhs[0][1] + lhs[i][1] * rhs[1][1] + lhs[i][2] * rhs[2][1];
-            r[i][2] = lhs[i][0] * rhs[0][2] + lhs[i][1] * rhs[1][2] + lhs[i][2] * rhs[2][2];
-        }
-        return r;
+    inline Matrix3 operator*(Matrix3 lhs, Matrix3 const rhs) {
+        lhs *= rhs;
+        return lhs;
     }
 
-    inline Vector3 operator*(Vector3 const lhs, Matrix3 const rhs) {
+    inline Vector3 operator*(Matrix3 const lhs, Vector3 const rhs) {
         Vector3 r;
-        r[0] = lhs[0] * rhs[0][0] + lhs[1] * rhs[1][0] + lhs[2] * rhs[2][0];
-        r[1] = lhs[0] * rhs[0][1] + lhs[1] * rhs[1][1] + lhs[2] * rhs[2][1];
-        r[2] = lhs[0] * rhs[0][2] + lhs[1] * rhs[1][2] + lhs[2] * rhs[2][2];
+        r[0] = rhs[0] * lhs[0][0] + rhs[1] * lhs[1][0] + rhs[2] * lhs[2][0];
+        r[1] = rhs[0] * lhs[0][1] + rhs[1] * lhs[1][1] + rhs[2] * lhs[2][1];
+        r[2] = rhs[0] * lhs[0][2] + rhs[1] * lhs[1][2] + rhs[2] * lhs[2][2];
         return r;
     }
 

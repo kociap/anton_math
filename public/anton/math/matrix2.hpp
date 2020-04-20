@@ -6,68 +6,85 @@
 #include <anton/math/detail/utility.hpp>
 
 namespace anton::math {
-    // Row major
+    // Column major
     class Matrix2 {
     public:
         static Matrix2 const zero;
         static Matrix2 const identity;
 
-        Matrix2(): rows{} {}
-        Matrix2(Vector2 const a, Vector2 const b): rows{a, b} {}
+        Matrix2(): columns{} {}
+        Matrix2(Vector2 const a, Vector2 const b): columns{a, b} {}
 
-        Vector2& operator[](i32 const row) {
-            return rows[row];
+        Vector2& operator[](i32 const column) {
+            return columns[column];
         }
 
-        Vector2 operator[](i32 const row) const {
-            return rows[row];
+        Vector2 operator[](i32 const column) const {
+            return columns[column];
         }
 
-        f32& operator()(i32 const row, i32 const column) {
-            return rows[row][column];
+        f32& operator()(i32 const column, i32 const row) {
+            return columns[column][row];
         }
 
-        f32 operator()(i32 const row, i32 const column) const {
-            return rows[row][column];
+        f32 operator()(i32 const column, i32 const row) const {
+            return columns[column][row];
         }
 
         f32 const* get_raw() const {
-            return (f32 const*)rows;
+            return (f32 const*)columns;
         }
 
         Matrix2& operator+=(f32 const a) {
-            for (i32 i = 0; i < 4; ++i) {
-                rows[i] += a;
-            }
+            columns[0] += a;
+            columns[1] += a;
             return *this;
         }
 
         Matrix2& operator-=(f32 const a) {
-            for (i32 i = 0; i < 4; ++i) {
-                rows[i] -= a;
-            }
+            columns[0] -= a;
+            columns[1] -= a;
             return *this;
         }
 
         Matrix2& operator*=(f32 const a) {
-            for (i32 i = 0; i < 4; ++i) {
-                rows[i] *= a;
-            }
+            columns[0] *= a;
+            columns[1] *= a;
             return *this;
         }
 
         Matrix2& operator/=(f32 const a) {
-            for (i32 i = 0; i < 4; ++i) {
-                rows[i] /= a;
+            columns[0] /= a;
+            columns[1] /= a;
+            return *this;
+        }
+
+        Matrix2& operator+=(Matrix2 const m) {
+            columns[0] += m.columns[0];
+            columns[1] += m.columns[1];
+            return *this;
+        }
+
+        Matrix2& operator-=(Matrix2 const m) {
+            columns[0] -= m.columns[0];
+            columns[1] -= m.columns[1];
+            return *this;
+        }
+
+        Matrix2& operator*=(Matrix2 const rhs) {
+            Matrix2 const lhs = *this;
+            for (i32 i = 0; i < 2; ++i) {
+                (*this)[i][0] = rhs[i][0] * lhs[0][0] + rhs[i][1] * lhs[1][0];
+                (*this)[i][1] = rhs[i][0] * lhs[0][1] + rhs[i][1] * lhs[1][1];
             }
             return *this;
         }
 
     private:
-        Vector2 rows[2];
+        Vector2 columns[2];
     };
 
-    inline Matrix2 const zero = Matrix2();
+    inline Matrix2 const Matrix2::zero = Matrix2();
     inline Matrix2 const Matrix2::identity = Matrix2({1, 0}, {0, 1});
 
     inline Matrix2 operator+(Matrix2 m, f32 const a) {
@@ -90,29 +107,26 @@ namespace anton::math {
         return m;
     }
 
-    inline Matrix2 operator+(Matrix2 m1, Matrix2 const m2) {
-        m1[0][0] += m2[0][0];
-        m1[0][1] += m2[0][1];
-        m1[1][0] += m2[1][0];
-        m1[1][1] += m2[1][1];
-        return m1;
+    inline Matrix2 operator+(Matrix2 lhs, Matrix2 const rhs) {
+        lhs += rhs;
+        return lhs;
     }
 
-    inline Matrix2 operator-(Matrix2 m1, Matrix2 const m2) {
-        m1[0][0] -= m2[0][0];
-        m1[0][1] -= m2[0][1];
-        m1[1][0] -= m2[1][0];
-        m1[1][1] -= m2[1][1];
-        return m1;
+    inline Matrix2 operator-(Matrix2 lhs, Matrix2 const rhs) {
+        lhs -= rhs;
+        return lhs;
     }
 
-    inline Matrix2 operator*(Matrix2 const m1, Matrix2 const m2) {
-        return {{m1[0][0] * m2[0][0] + m1[0][1] * m2[1][0], m1[0][0] * m2[0][1] + m1[0][1] * m2[1][1]},
-                {m1[1][0] * m2[0][0] + m1[1][1] * m2[1][0], m1[1][0] * m2[0][1] + m1[1][1] * m2[1][1]}};
+    inline Matrix2 operator*(Matrix2 lhs, Matrix2 const rhs) {
+        lhs *= rhs;
+        return lhs;
     }
 
-    inline Vector2 operator*(Vector2 const v, Matrix2 const m) {
-        return {v[0] * m[0][0] + v[1] * m[1][0], v[0] * m[0][1] + v[1] * m[1][1]};
+    inline Vector2 operator*(Matrix2 const lhs, Vector2 const rhs) {
+        Vector2 r;
+        r[0] = rhs[0] * lhs[0][0] + rhs[1] * lhs[1][0];
+        r[1] = rhs[0] * lhs[0][1] + rhs[1] * lhs[1][1];
+        return r;
     }
 
     inline Matrix2 transpose(Matrix2 m) {

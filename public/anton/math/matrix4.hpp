@@ -6,65 +6,96 @@
 #include <anton/math/detail/utility.hpp>
 
 namespace anton::math {
-    // Row major
+    // Column major
     class Matrix4 {
     public:
         static Matrix4 const zero;
         static Matrix4 const identity;
 
-        Matrix4(): rows{} {}
-        Matrix4(Vector4 const a, Vector4 const b, Vector4 const c, Vector4 const d): rows{a, b, c, d} {}
+        Matrix4(): columns{} {}
+        Matrix4(Vector4 const a, Vector4 const b, Vector4 const c, Vector4 const d): columns{a, b, c, d} {}
 
-        Vector4& operator[](i32 const row) {
-            return rows[row];
+        Vector4& operator[](i32 const column) {
+            return columns[column];
         }
 
-        Vector4 operator[](i32 const row) const {
-            return rows[row];
+        Vector4 operator[](i32 const column) const {
+            return columns[column];
         }
 
-        f32& operator()(i32 const row, i32 const column) {
-            return rows[row][column];
+        f32& operator()(i32 const column, i32 const row) {
+            return columns[column][row];
         }
 
-        f32 operator()(i32 const row, i32 const column) const {
-            return rows[row][column];
+        f32 operator()(i32 const column, i32 const row) const {
+            return columns[column][row];
         }
 
         f32 const* get_raw() const {
-            return (f32 const*)rows;
+            return (f32 const*)columns;
         }
 
         Matrix4& operator+=(f32 const a) {
-            for (i32 i = 0; i < 4; ++i) {
-                rows[i] += a;
-            }
+            columns[0] += a;
+            columns[1] += a;
+            columns[2] += a;
+            columns[3] += a;
             return *this;
         }
 
         Matrix4& operator-=(f32 const a) {
-            for (i32 i = 0; i < 4; ++i) {
-                rows[i] -= a;
-            }
+            columns[0] -= a;
+            columns[1] -= a;
+            columns[2] -= a;
+            columns[3] -= a;
             return *this;
         }
 
         Matrix4& operator*=(f32 const a) {
-            for (i32 i = 0; i < 4; ++i) {
-                rows[i] *= a;
-            }
+            columns[0] *= a;
+            columns[1] *= a;
+            columns[2] *= a;
+            columns[3] *= a;
             return *this;
         }
 
         Matrix4& operator/=(f32 const a) {
+            columns[0] /= a;
+            columns[1] /= a;
+            columns[2] /= a;
+            columns[3] /= a;
+            return *this;
+        }
+
+        Matrix4& operator+=(Matrix4 const m) {
+            columns[0] += m.columns[0];
+            columns[1] += m.columns[1];
+            columns[2] += m.columns[2];
+            columns[3] += m.columns[3];
+            return *this;
+        }
+
+        Matrix4& operator-=(Matrix4 const m) {
+            columns[0] -= m.columns[0];
+            columns[1] -= m.columns[1];
+            columns[2] -= m.columns[2];
+            columns[3] -= m.columns[3];
+            return *this;
+        }
+
+        Matrix4& operator*=(Matrix4 const rhs) {
+            Matrix4 const lhs = *this;
             for (i32 i = 0; i < 4; ++i) {
-                rows[i] /= a;
+                (*this)[i][0] = rhs[i][0] * lhs[0][0] + rhs[i][1] * lhs[1][0] + rhs[i][2] * lhs[2][0] + rhs[i][3] * lhs[3][0];
+                (*this)[i][1] = rhs[i][0] * lhs[0][1] + rhs[i][1] * lhs[1][1] + rhs[i][2] * lhs[2][1] + rhs[i][3] * lhs[3][1];
+                (*this)[i][2] = rhs[i][0] * lhs[0][2] + rhs[i][1] * lhs[1][2] + rhs[i][2] * lhs[2][2] + rhs[i][3] * lhs[3][2];
+                (*this)[i][3] = rhs[i][0] * lhs[0][3] + rhs[i][1] * lhs[1][3] + rhs[i][2] * lhs[2][3] + rhs[i][3] * lhs[3][3];
             }
             return *this;
         }
 
     private:
-        Vector4 rows[4];
+        Vector4 columns[4];
     };
 
     inline Matrix4 const Matrix4::zero = Matrix4();
@@ -90,37 +121,27 @@ namespace anton::math {
         return m;
     }
 
-    inline Matrix4 operator+(Matrix4 const a, Matrix4 const b) {
-        return {{a[0][0] + b[0][0], a[0][1] + b[0][1], a[0][2] + b[0][2], a[0][3] + b[0][3]},
-                {a[1][0] + b[1][0], a[1][1] + b[1][1], a[1][2] + b[1][2], a[1][3] + b[1][3]},
-                {a[2][0] + b[2][0], a[2][1] + b[2][1], a[2][2] + b[2][2], a[2][3] + b[2][3]},
-                {a[3][0] + b[3][0], a[3][1] + b[3][1], a[3][2] + b[3][2], a[3][3] + b[3][3]}};
+    inline Matrix4 operator+(Matrix4 lhs, Matrix4 const rhs) {
+        lhs += rhs;
+        return lhs;
     }
 
-    inline Matrix4 operator-(Matrix4 const a, Matrix4 const b) {
-        return {{a[0][0] - b[0][0], a[0][1] - b[0][1], a[0][2] - b[0][2], a[0][3] - b[0][3]},
-                {a[1][0] - b[1][0], a[1][1] - b[1][1], a[1][2] - b[1][2], a[1][3] - b[1][3]},
-                {a[2][0] - b[2][0], a[2][1] - b[2][1], a[2][2] - b[2][2], a[2][3] - b[2][3]},
-                {a[3][0] - b[3][0], a[3][1] - b[3][1], a[3][2] - b[3][2], a[3][3] - b[3][3]}};
+    inline Matrix4 operator-(Matrix4 lhs, Matrix4 const rhs) {
+        lhs -= rhs;
+        return lhs;
     }
 
-    inline Matrix4 operator*(Matrix4 const lhs, Matrix4 const rhs) {
-        Matrix4 r;
-        for (i32 i = 0; i < 4; ++i) {
-            r[i][0] = lhs[i][0] * rhs[0][0] + lhs[i][1] * rhs[1][0] + lhs[i][2] * rhs[2][0] + lhs[i][3] * rhs[3][0];
-            r[i][1] = lhs[i][0] * rhs[0][1] + lhs[i][1] * rhs[1][1] + lhs[i][2] * rhs[2][1] + lhs[i][3] * rhs[3][1];
-            r[i][2] = lhs[i][0] * rhs[0][2] + lhs[i][1] * rhs[1][2] + lhs[i][2] * rhs[2][2] + lhs[i][3] * rhs[3][2];
-            r[i][3] = lhs[i][0] * rhs[0][3] + lhs[i][1] * rhs[1][3] + lhs[i][2] * rhs[2][3] + lhs[i][3] * rhs[3][3];
-        }
-        return r;
+    inline Matrix4 operator*(Matrix4 lhs, Matrix4 const rhs) {
+        lhs *= rhs;
+        return lhs;
     }
 
-    inline Vector4 operator*(Vector4 const lhs, Matrix4 const rhs) {
+    inline Vector4 operator*(Matrix4 const lhs, Vector4 const rhs) {
         Vector4 r;
-        r[0] = lhs[0] * rhs[0][0] + lhs[1] * rhs[1][0] + lhs[2] * rhs[2][0] + lhs[3] * rhs[3][0];
-        r[1] = lhs[0] * rhs[0][1] + lhs[1] * rhs[1][1] + lhs[2] * rhs[2][1] + lhs[3] * rhs[3][1];
-        r[2] = lhs[0] * rhs[0][2] + lhs[1] * rhs[1][2] + lhs[2] * rhs[2][2] + lhs[3] * rhs[3][2];
-        r[3] = lhs[0] * rhs[0][3] + lhs[1] * rhs[1][3] + lhs[2] * rhs[2][3] + lhs[3] * rhs[3][3];
+        r[0] = rhs[0] * lhs[0][0] + rhs[1] * lhs[1][0] + rhs[2] * lhs[2][0] + rhs[3] * lhs[3][0];
+        r[1] = rhs[0] * lhs[0][1] + rhs[1] * lhs[1][1] + rhs[2] * lhs[2][1] + rhs[3] * lhs[3][1];
+        r[2] = rhs[0] * lhs[0][2] + rhs[1] * lhs[1][2] + rhs[2] * lhs[2][2] + rhs[3] * lhs[3][2];
+        r[3] = rhs[0] * lhs[0][3] + rhs[1] * lhs[1][3] + rhs[2] * lhs[2][3] + rhs[3] * lhs[3][3];
         return r;
     }
 

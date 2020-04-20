@@ -10,7 +10,7 @@
 // Forward declarations from math.h
 
 extern "C" {
-    #if defined(_WIN32)
+    #if defined(_WIN32) || defined(_WIN64)
     #    define ANTON_CRT_IMPORT __declspec(dllimport)
     #else
     #    define ANTON_CRT_IMPORT
@@ -36,9 +36,17 @@ namespace anton::math {
     using u16 = unsigned short;
     using i32 = int;
     using u32 = unsigned int;
+
+#if defined(_WIN32) || defined(_WIN64)
     using i64 = long long;
     using u64 = unsigned long long;
+#else
+    using i64 = long int;
+    using u64 = unsigned long int;
+#endif
+
     using f32 = float;
+    using f64 = double;
 
     static_assert(sizeof(u8) == 1, "u8 is not 8 bits wide.");
     static_assert(sizeof(u16) == 2, "u16 is not 16 bits wide.");
