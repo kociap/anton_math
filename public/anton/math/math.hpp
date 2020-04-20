@@ -16,15 +16,15 @@ extern "C" {
     #    define ANTON_CRT_IMPORT
     #endif
 
-    ANTON_CRT_IMPORT float powf(float, float);
-    ANTON_CRT_IMPORT float sqrtf(float);
-    ANTON_CRT_IMPORT float sinf(float);
-    ANTON_CRT_IMPORT float cosf(float);
-    ANTON_CRT_IMPORT float roundf(float);
-    ANTON_CRT_IMPORT float floorf(float);
-    ANTON_CRT_IMPORT float ceilf(float);
-    ANTON_CRT_IMPORT float tanf(float);
-    ANTON_CRT_IMPORT float modff(float, float*);
+    ANTON_CRT_IMPORT float powf(float, float) noexcept;
+    ANTON_CRT_IMPORT float sqrtf(float) noexcept;
+    ANTON_CRT_IMPORT float sinf(float) noexcept;
+    ANTON_CRT_IMPORT float cosf(float) noexcept;
+    ANTON_CRT_IMPORT float roundf(float) noexcept;
+    ANTON_CRT_IMPORT float floorf(float) noexcept;
+    ANTON_CRT_IMPORT float ceilf(float) noexcept;
+    ANTON_CRT_IMPORT float tanf(float) noexcept;
+    ANTON_CRT_IMPORT float modff(float, float*) noexcept;
 
     #undef ANTON_CRT_IMPORT
 }
