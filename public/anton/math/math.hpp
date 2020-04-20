@@ -11,22 +11,25 @@
 
 extern "C" {
     #if defined(_WIN32) || defined(_WIN64)
+    #    define ANTON_NOEXCEPT
     #    define ANTON_CRT_IMPORT __declspec(dllimport)
     #else
+    #    define ANTON_NOEXCEPT noexcept
     #    define ANTON_CRT_IMPORT
     #endif
 
-    ANTON_CRT_IMPORT float powf(float, float) noexcept;
-    ANTON_CRT_IMPORT float sqrtf(float) noexcept;
-    ANTON_CRT_IMPORT float sinf(float) noexcept;
-    ANTON_CRT_IMPORT float cosf(float) noexcept;
-    ANTON_CRT_IMPORT float roundf(float) noexcept;
-    ANTON_CRT_IMPORT float floorf(float) noexcept;
-    ANTON_CRT_IMPORT float ceilf(float) noexcept;
-    ANTON_CRT_IMPORT float tanf(float) noexcept;
-    ANTON_CRT_IMPORT float modff(float, float*) noexcept;
+    ANTON_CRT_IMPORT float powf(float, float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float sqrtf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float sinf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float cosf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float roundf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float floorf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float ceilf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float tanf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float modff(float, float*) ANTON_NOEXCEPT;
 
     #undef ANTON_CRT_IMPORT
+    #undef ANTON_NOEXCEPT
 }
 
 namespace anton::math {
