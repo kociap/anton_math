@@ -3,10 +3,23 @@
 
 #include <anton/math/math.hpp>
 #include <anton/math/detail/utility.hpp>
+#include <anton/math/vector3.hpp>
 
 namespace anton::math {
     class Quaternion {
     public:
+        // from_axis_angle
+        // Constructs quaternion from given axis and angle.
+        //
+        // axis - normalized axis of rotation.
+        // angle - angle of rotation in radians.
+        //
+        static Quaternion from_axis_angle(Vector3 const axis, f32 const angle) {
+            f32 const sin = math::sin(angle * 0.5f);
+            f32 const cos = math::cos(angle * 0.5f);
+            return {axis.x * sin, axis.y * sin, axis.z * sin, cos};
+        }
+
         // Identity quaternion.
         // Equivalent to Quaternion(0, 0, 0, 1)
         static Quaternion const identity;
