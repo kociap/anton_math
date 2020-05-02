@@ -20,13 +20,22 @@ extern "C" {
 
     ANTON_CRT_IMPORT float powf(float, float) ANTON_NOEXCEPT;
     ANTON_CRT_IMPORT float sqrtf(float) ANTON_NOEXCEPT;
-    ANTON_CRT_IMPORT float sinf(float) ANTON_NOEXCEPT;
-    ANTON_CRT_IMPORT float cosf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float cbrtf(float) ANTON_NOEXCEPT;
     ANTON_CRT_IMPORT float roundf(float) ANTON_NOEXCEPT;
     ANTON_CRT_IMPORT float floorf(float) ANTON_NOEXCEPT;
     ANTON_CRT_IMPORT float ceilf(float) ANTON_NOEXCEPT;
-    ANTON_CRT_IMPORT float tanf(float) ANTON_NOEXCEPT;
     ANTON_CRT_IMPORT float modff(float, float*) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float sinf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float cosf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float tanf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float asinf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float acosf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float atanf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float atan2f(float, float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float expf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float logf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float log10f(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float log2f(float) ANTON_NOEXCEPT;
 
     #undef ANTON_CRT_IMPORT
     #undef ANTON_NOEXCEPT
@@ -89,6 +98,10 @@ namespace anton::math {
         return ::sqrtf(a);
     }
 
+    inline f32 cbrt(f32 a) {
+        return ::cbrtf(a);
+    }
+
     inline f32 inv_sqrt(f32 a) {
         return 1 / sqrt(a);
     }
@@ -101,12 +114,56 @@ namespace anton::math {
         return ::sinf(angle);
     }
 
+    inline f32 asin(f32 angle) {
+        return ::asinf(angle);
+    }
+
     inline f32 cos(f32 angle) {
         return ::cosf(angle);
     }
 
+    inline f32 acos(f32 angle) {
+        return ::acosf(angle);
+    }
+
     inline f32 tan(f32 angle) {
         return ::tanf(angle);
+    }
+
+    inline f32 atan(f32 angle) {
+        return ::atanf(angle);
+    }
+
+    inline f32 atan2(f32 y, f32 x) {
+        return ::atan2f(y, x);
+    }
+
+    // exp
+    // Calculate e^n
+    //
+    inline f32 exp(f32 n) {
+        return ::expf(n);
+    }
+
+    // log
+    // Compute natural logarithm (base-e).
+    //
+    inline f32 log(f32 v) {
+        return ::logf(v);
+    }
+
+    // log10
+    // Compute base-10 logarithm.
+    //
+    inline f32 log10(f32 v) {
+        return ::log10f(v);
+    }
+
+    // log2
+    // Compute base-2 logarithm.
+    //
+    inline f32 log2(f32 v) {
+        return ::log2f(v);
     }
 
     template <typename T>
@@ -157,6 +214,7 @@ namespace anton::math {
 
     // lerp
     // Computes the linear interpolation between a and b for the parameter t in the interval [0, 1].
+    //
     constexpr f32 lerp(f32 const a, f32 const b, f32 const t) {
         return (1.0f - t) * a + t * b;
     }

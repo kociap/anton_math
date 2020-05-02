@@ -173,6 +173,10 @@ namespace anton::math {
 
         return vec;
     }
+
+    inline Vector3 lerp(Vector3 const a, Vector3 const b, f32 const t) {
+        return (1.0f - t) * a + t * b;
+    }
     
     inline void swap(Vector3& a, Vector3& b) {
         detail::swap(a.x, b.x);

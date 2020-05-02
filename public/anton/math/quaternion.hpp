@@ -46,12 +46,10 @@ namespace anton::math {
     // Hamilton Product
     //
     inline Quaternion operator*(Quaternion p, Quaternion q) {
-        // clang-format off
         return {p.w * q.x + q.w * p.x + p.y * q.z - p.z * q.y,
                 p.w * q.y + q.w * p.y + p.z * q.x - p.x * q.z,
                 p.w * q.z + q.w * p.z + p.x * q.y - p.y * q.x,
                 p.w * q.w - p.x * q.x - p.y * q.y - p.z * q.z};
-        // clang-format on
     }
 
     inline Quaternion operator*(Quaternion const& q, f32 a) {
@@ -78,6 +76,7 @@ namespace anton::math {
         return {-q.x, -q.y, -q.z, q.w};
     }
 
+    // inverse
     // If quaternion is normalized, this function returns the same result as conjugate.
     //
     inline Quaternion inverse(Quaternion const& q) {

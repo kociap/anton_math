@@ -182,6 +182,10 @@ namespace anton::math {
 
         return vec;
     }
+
+    inline Vector4 lerp(Vector4 const a, Vector4 const b, f32 const t) {
+        return (1.0f - t) * a + t * b;
+    }
     
     inline void swap(Vector4& a, Vector4& b) {
         detail::swap(a.x, b.x);
