@@ -21,6 +21,7 @@ extern "C" {
     ANTON_CRT_IMPORT float powf(float, float) ANTON_NOEXCEPT;
     ANTON_CRT_IMPORT float sqrtf(float) ANTON_NOEXCEPT;
     ANTON_CRT_IMPORT float cbrtf(float) ANTON_NOEXCEPT;
+    ANTON_CRT_IMPORT float fmodf(float, float) ANTON_NOEXCEPT;
     ANTON_CRT_IMPORT float roundf(float) ANTON_NOEXCEPT;
     ANTON_CRT_IMPORT float floorf(float) ANTON_NOEXCEPT;
     ANTON_CRT_IMPORT float ceilf(float) ANTON_NOEXCEPT;
@@ -184,6 +185,14 @@ namespace anton::math {
     template <typename T>
     constexpr T clamp(T x, T lower_limit, T upper_limit) {
         return min(max(x, lower_limit), upper_limit);
+    }
+
+    // mod
+    // Computes the floating point remainder of the operation x/y.
+    // The result has the same sign as x.
+    //
+    inline f32 mod(f32 x, f32 y) {
+        return fmodf(x, y);
     }
 
     inline f32 round(f32 x) {
