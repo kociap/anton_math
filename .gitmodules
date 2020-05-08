@@ -1,0 +1,3 @@
+[submodule "dependencies/anton_types"]
+	path = dependencies/anton_types
+	url = https://github.com/kociap/anton_types.git

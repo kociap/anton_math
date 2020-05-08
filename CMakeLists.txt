@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.13)
 
 project(anton_math)
 
+add_subdirectory(dependencies/anton_types)
+
 add_library(anton_math
     "${CMAKE_CURRENT_SOURCE_DIR}/public/anton/math/math.hpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/public/anton/math/matrix2.hpp"
@@ -15,6 +17,7 @@ add_library(anton_math
     "${CMAKE_CURRENT_SOURCE_DIR}/private/vector.cpp"
 )
 
+target_link_libraries(anton_math PUBLIC anton_types)
 target_include_directories(anton_math PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/public")
 
 set_target_properties(anton_math 

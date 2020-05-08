@@ -42,31 +42,9 @@ extern "C" {
     #undef ANTON_NOEXCEPT
 }
 
+#include <anton/types.hpp>
+
 namespace anton::math {
-    using i8 = char;
-    using u8 = unsigned char;
-    using i16 = short;
-    using u16 = unsigned short;
-    using i32 = int;
-    using u32 = unsigned int;
-
-#if defined(_WIN32) || defined(_WIN64)
-    using i64 = long long;
-    using u64 = unsigned long long;
-#else
-    using i64 = long int;
-    using u64 = unsigned long int;
-#endif
-
-    using f32 = float;
-    using f64 = double;
-
-    static_assert(sizeof(u8) == 1, "u8 is not 8 bits wide.");
-    static_assert(sizeof(u16) == 2, "u16 is not 16 bits wide.");
-    static_assert(sizeof(u32) == 4, "u32 is not 32 bits wide.");
-    static_assert(sizeof(u64) == 8, "u64 is not 64 bits wide.");
-    static_assert(sizeof(f32) == 4, "f32 is not 32 bits wide.");
-
     constexpr f32 pi = 3.1415926f;
     constexpr f32 half_pi = 1.5707964f;
     constexpr f32 two_pi = 6.2831853f;
