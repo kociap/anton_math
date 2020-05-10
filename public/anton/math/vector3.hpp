@@ -159,13 +159,13 @@ namespace anton::math {
         return v.x * v.x + v.y * v.y + v.z * v.z;
     }
 
-    constexpr f32 length(Vector3 v) {
+    inline f32 length(Vector3 v) {
         return math::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
     }
 
     // If vector is non-zero, returns normalized copy of the vector.
     // Otherwise returns zero vector.
-    constexpr Vector3 normalize(Vector3 vec) {
+    inline Vector3 normalize(Vector3 vec) {
         if (!is_almost_zero(vec)) {
             f32 inverse_vec_length = math::inv_sqrt(length_squared(vec));
             vec *= inverse_vec_length;
