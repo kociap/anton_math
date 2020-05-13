@@ -10,12 +10,28 @@ namespace anton::math {
 
     class Vector4 {
     public:
-        f32 x = 0;
-        f32 y = 0;
-        f32 z = 0;
-        f32 w = 0;
+         union {
+            f32 x;
+            f32 r;
+        };
 
-        constexpr Vector4() = default;
+        union {
+            f32 y;
+            f32 g;
+        };
+
+        union {
+            f32 z;
+            f32 b;
+        };
+
+        union {
+            f32 w;
+            f32 a;
+        };
+
+        constexpr Vector4(): x(0.0f), y(0.0f), z(0.0f), w(0.0f) {}
+        constexpr Vector4(f32 v): x(v), y(v), z(v), w(v) {}
         constexpr Vector4(f32 x, f32 y, f32 z, f32 w): x(x), y(y), z(z), w(w) {}
         explicit Vector4(Vector2 const&, f32 z = 0.0f, f32 w = 0.0f);
         explicit Vector4(Vector3 const&, f32 w = 0.0f);

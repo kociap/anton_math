@@ -10,10 +10,18 @@ namespace anton::math {
 
     class Vector2 {
     public:
-        f32 x = 0;
-        f32 y = 0;
+        union {
+            f32 x;
+            f32 r;
+        };
 
-        constexpr Vector2() = default;
+        union {
+            f32 y;
+            f32 g;
+        };
+
+        constexpr Vector2(): x(0.0f), y(0.0f) {}
+        constexpr Vector2(f32 v): x(v), y(v){}
         constexpr Vector2(f32 x, f32 y): x(x), y(y) {}
         explicit Vector2(Vector3 const&);
         explicit Vector2(Vector4 const&);

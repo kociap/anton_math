@@ -10,11 +10,23 @@ namespace anton::math {
 
     class Vector3 {
     public:
-        f32 x = 0;
-        f32 y = 0;
-        f32 z = 0;
+        union {
+            f32 x;
+            f32 r;
+        };
 
-        constexpr Vector3() = default;
+        union {
+            f32 y;
+            f32 g;
+        };
+
+        union {
+            f32 z;
+            f32 b;
+        };
+
+        constexpr Vector3(): x(0.0f), y(0.0f), z(0.0f) {}
+        constexpr Vector3(f32 v): x(v), y(v), z(v) {}
         constexpr Vector3(f32 x, f32 y, f32 z): x(x), y(y), z(z) {}
         explicit Vector3(Vector2 const&, f32 z = 0.0f);
         explicit Vector3(Vector4 const&);
