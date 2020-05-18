@@ -14,6 +14,7 @@ namespace anton::math {
 
         Matrix4(): columns{} {}
         Matrix4(Vector4 const a, Vector4 const b, Vector4 const c, Vector4 const d): columns{a, b, c, d} {}
+        explicit Matrix4(f32 const* const p): columns{Vector4{p}, Vector4{p + 4}, Vector4{p + 8}, Vector4{p + 12}} {}
 
         Vector4& operator[](i32 const column) {
             return columns[column];

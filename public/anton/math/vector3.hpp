@@ -28,8 +28,9 @@ namespace anton::math {
         constexpr Vector3(): x(0.0f), y(0.0f), z(0.0f) {}
         constexpr Vector3(f32 v): x(v), y(v), z(v) {}
         constexpr Vector3(f32 x, f32 y, f32 z): x(x), y(y), z(z) {}
-        explicit Vector3(Vector2 const&, f32 z = 0.0f);
-        explicit Vector3(Vector4 const&);
+        explicit Vector3(Vector2 const& vec2, f32 z = 0.0f);
+        explicit Vector3(Vector4 const& vec4);
+        explicit Vector3(f32 const* const p): x(p[0]), y(p[1]), z(p[2]) {}
 
         constexpr f32& operator[](i32 index) {
             return (&x)[index];
