@@ -190,6 +190,13 @@ namespace anton::math {
         return ::modff(x, &integral_part);
     }
 
+    // is_almost_zero
+    // Determines whether the value is almost equal to 0 within given tolerance.
+    //
+    constexpr bool is_almost_zero(f32 const value, f32 const tolerance = 0.000001f) {
+        return math::abs(value) <= tolerance;
+    }
+
     constexpr f32 step_to_value(f32 current, f32 target, f32 change) {
         f32 delta = target - current;
         if (abs(delta) > change) {
