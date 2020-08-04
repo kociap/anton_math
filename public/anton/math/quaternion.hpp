@@ -1,13 +1,13 @@
 #ifndef ANTON_MATH_QUATERNION_HPP_INCLUDE
 #define ANTON_MATH_QUATERNION_HPP_INCLUDE
 
-#include <anton/math/math.hpp>
 #include <anton/math/detail/utility.hpp>
+#include <anton/math/math.hpp>
 #include <anton/math/vector3.hpp>
 
 namespace anton::math {
     class Quaternion {
-    public:
+      public:
         // from_axis_angle
         // Constructs quaternion from given axis and angle.
         //
@@ -30,7 +30,7 @@ namespace anton::math {
         f32 w = 1;
 
         Quaternion() = default;
-        Quaternion(f32 x, f32 y, f32 z, f32 w): x(x), y(y), z(z), w(w) {}
+        Quaternion(f32 x, f32 y, f32 z, f32 w) : x(x), y(y), z(z), w(w) {}
     };
 
     inline Quaternion const Quaternion::identity = Quaternion(0, 0, 0, 1);

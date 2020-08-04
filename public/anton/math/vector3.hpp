@@ -1,8 +1,8 @@
 #ifndef ANTON_MATH_VECTOR3_HPP_INCLUDE
 #define ANTON_MATH_VECTOR3_HPP_INCLUDE
 
-#include <anton/math/math.hpp>
 #include <anton/math/detail/utility.hpp>
+#include <anton/math/math.hpp>
 
 namespace anton::math {
     class Vector2;
@@ -26,7 +26,7 @@ namespace anton::math {
         };
 
         constexpr Vector3(): x(0.0f), y(0.0f), z(0.0f) {}
-        constexpr Vector3(f32 v): x(v), y(v), z(v) {}
+        explicit constexpr Vector3(f32 v): x(v), y(v), z(v) {}
         constexpr Vector3(f32 x, f32 y, f32 z): x(x), y(y), z(z) {}
         explicit Vector3(Vector2 const& vec2, f32 z = 0.0f);
         explicit Vector3(Vector4 const& vec4);
@@ -179,7 +179,7 @@ namespace anton::math {
     // If vector is non-zero, returns normalized copy of the vector.
     // Otherwise returns zero vector.
     inline Vector3 normalize(Vector3 vec) {
-        if (!is_almost_zero(vec)) {
+        if(!is_almost_zero(vec)) {
             f32 inverse_vec_length = math::inv_sqrt(length_squared(vec));
             vec *= inverse_vec_length;
         }
@@ -190,7 +190,7 @@ namespace anton::math {
     constexpr Vector3 lerp(Vector3 const a, Vector3 const b, f32 const t) {
         return (1.0f - t) * a + t * b;
     }
-    
+
     constexpr void swap(Vector3& a, Vector3& b) {
         detail::swap(a.x, b.x);
         detail::swap(a.y, b.y);

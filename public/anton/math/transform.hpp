@@ -1,10 +1,10 @@
 #ifndef ANTON_MATH_TRANSFORM_HPP_INCLUDE
 #define ANTON_MATH_TRANSFORM_HPP_INCLUDE
 
+#include <anton/math/math.hpp>
 #include <anton/math/matrix4.hpp>
 #include <anton/math/quaternion.hpp>
 #include <anton/math/vector3.hpp>
-#include <anton/math/math.hpp>
 
 namespace anton::math {
     inline Matrix4 translate(Vector3 translation) {
