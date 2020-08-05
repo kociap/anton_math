@@ -1,5 +1,4 @@
-#ifndef ANTON_MATH_VECTOR2_HPP_INLCUDE
-#define ANTON_MATH_VECTOR2_HPP_INLCUDE
+#pragma once
 
 #include <anton/math/detail/utility.hpp>
 #include <anton/math/math.hpp>
@@ -33,6 +32,10 @@ namespace anton::math {
 
         constexpr f32 operator[](i32 index) const {
             return (&x)[index];
+        }
+
+        f32 const* data() const {
+            return &x;
         }
     };
 
@@ -163,15 +166,16 @@ namespace anton::math {
         return math::sqrt(v.x * v.x + v.y * v.y);
     }
 
+    // normalize
     // If vector is non-zero, returns normalized copy of the vector.
     // Otherwise returns zero vector.
-    inline Vector2 normalize(Vector2 vec) {
-        if(!is_almost_zero(vec)) {
-            f32 inverse_vec_length = math::inv_sqrt(math::length_squared(vec));
-            vec *= inverse_vec_length;
+    inline Vector2 normalize(Vector2 vec, f32 const tolerance = 0.000001f) {
+        if(!is_almost_zero(vec, tolerance)) {
+            f32 const inverse_vec_length = math::inv_sqrt(length_squared(vec));
+            return vec * inverse_vec_length;
+        } else {
+            return Vector2{};
         }
-
-        return vec;
     }
 
     constexpr Vector2 lerp(Vector2 const a, Vector2 const b, f32 const t) {
@@ -183,5 +187,3 @@ namespace anton::math {
         detail::swap(a.y, b.y);
     }
 } // namespace anton::math
-
-#endif // !ANTON_MATH_VECTOR2_HPP_INLCUDE

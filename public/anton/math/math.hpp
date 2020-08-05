@@ -1,5 +1,4 @@
-#ifndef ANTON_MATH_MATH_HPP_INCLUDE
-#define ANTON_MATH_MATH_HPP_INCLUDE
+#pragma once
 
 // Safety measures
 #undef max
@@ -381,5 +380,3 @@ namespace anton::math {
     //     return 20;
     // }
 } // namespace anton::math
-
-#endif // !ANTON_MATH_MATH_HPP_INCLUDE

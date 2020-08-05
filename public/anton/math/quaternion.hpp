@@ -1,5 +1,4 @@
-#ifndef ANTON_MATH_QUATERNION_HPP_INCLUDE
-#define ANTON_MATH_QUATERNION_HPP_INCLUDE
+#pragma once
 
 #include <anton/math/detail/utility.hpp>
 #include <anton/math/math.hpp>
@@ -90,5 +89,3 @@ namespace anton::math {
         detail::swap(q1.w, q2.w);
     }
 } // namespace anton::math
-
-#endif // !ANTON_MATH_QUATERNION_HPP_INCLUDE

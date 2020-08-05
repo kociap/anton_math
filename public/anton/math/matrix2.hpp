@@ -1,5 +1,4 @@
-#ifndef ANTON_MATH_MATRIX2_HPP_INCLUDE
-#define ANTON_MATH_MATRIX2_HPP_INCLUDE
+#pragma once
 
 #include <anton/math/math.hpp>
 #include <anton/math/vector2.hpp>
@@ -32,7 +31,7 @@ namespace anton::math {
             return columns[column][row];
         }
 
-        f32 const* get_raw() const {
+        f32 const* data() const {
             return (f32 const*)columns;
         }
 
@@ -152,5 +151,3 @@ namespace anton::math {
         detail::swap(m1[1], m2[1]);
     }
 } // namespace anton::math
-
-#endif // !ANTON_MATH_MATRIX2_HPP_INCLUDE

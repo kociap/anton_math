@@ -1,5 +1,4 @@
-#ifndef ANTON_MATH_VECTOR4_HPP_INCLUDE
-#define ANTON_MATH_VECTOR4_HPP_INCLUDE
+#pragma once
 
 #include <anton/math/detail/utility.hpp>
 #include <anton/math/math.hpp>
@@ -9,7 +8,7 @@ namespace anton::math {
     class Vector3;
 
     class Vector4 {
-    public:
+      public:
         union {
             f32 x;
             f32 r;
@@ -43,6 +42,10 @@ namespace anton::math {
 
         constexpr f32 operator[](i32 index) const {
             return (&x)[index];
+        }
+
+        f32 const* data() const {
+            return &x;
         }
     };
 
@@ -189,15 +192,16 @@ namespace anton::math {
         return math::sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
     }
 
+    // normalize
     // If vector is non-zero, returns normalized copy of the vector.
     // Otherwise returns zero vector.
-    inline Vector4 normalize(Vector4 vec) {
-        if(!is_almost_zero(vec)) {
-            f32 inverse_vec_length = math::inv_sqrt(length_squared(vec));
-            vec *= inverse_vec_length;
+    inline Vector4 normalize(Vector4 vec, f32 const tolerance = 0.000001f) {
+        if(!is_almost_zero(vec, tolerance)) {
+            f32 const inverse_vec_length = math::inv_sqrt(length_squared(vec));
+            return vec * inverse_vec_length;
+        } else {
+            return Vector4{};
         }
-
-        return vec;
     }
 
     constexpr Vector4 lerp(Vector4 const a, Vector4 const b, f32 const t) {
@@ -211,5 +215,3 @@ namespace anton::math {
         detail::swap(a.w, b.w);
     }
 } // namespace anton::math
-
-#endif // !ANTON_MATH_VECTOR4_HPP_INCLUDE

@@ -1,5 +1,4 @@
-#ifndef ANTON_MATH_MATRIX4_HP_INCLUDE
-#define ANTON_MATH_MATRIX4_HP_INCLUDE
+#pragma once
 
 #include <anton/math/math.hpp>
 #include <anton/math/vector4.hpp>
@@ -32,7 +31,7 @@ namespace anton::math {
             return columns[column][row];
         }
 
-        f32 const* get_raw() const {
+        f32 const* data() const {
             return (f32 const*)columns;
         }
 
@@ -188,13 +187,11 @@ namespace anton::math {
         f32 m31 = _determinant3x3(m[0][0], m[0][2], m[0][3], m[1][0], m[1][2], m[1][3], m[2][0], m[2][2], m[2][3]);
         f32 m32 = _determinant3x3(m[0][0], m[0][1], m[0][3], m[1][0], m[1][1], m[1][3], m[2][0], m[2][1], m[2][3]);
         f32 m33 = _determinant3x3(m[0][0], m[0][1], m[0][2], m[1][0], m[1][1], m[1][2], m[2][0], m[2][1], m[2][2]);
-        // clang-format off
         return Matrix4(
             {m00, -m10, m20, -m30}, 
             {-m01, m11, -m21, m31}, 
             {m02, -m12, m22, -m32}, 
             {-m03, m13, -m23, m33});
-        // clang-format on
     }
 
     inline Matrix4 inverse(Matrix4 const m) {
@@ -208,5 +205,3 @@ namespace anton::math {
         detail::swap(m1[3], m2[3]);
     }
 } // namespace anton::math
-
-#endif // !ANTON_MATH_MATRIX4_HP_INCLUDE
