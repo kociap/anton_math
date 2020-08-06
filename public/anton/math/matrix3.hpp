@@ -6,7 +6,7 @@
 
 namespace anton::math {
     // Column major
-    class Matrix3 {
+    struct Matrix3 {
     public:
         static Matrix3 const zero;
         static Matrix3 const identity;

@@ -5,8 +5,7 @@
 #include <anton/math/vector3.hpp>
 
 namespace anton::math {
-    class Quaternion {
-      public:
+    struct Quaternion {
         // from_axis_angle
         // Constructs quaternion from given axis and angle.
         //

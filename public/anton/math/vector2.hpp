@@ -4,11 +4,10 @@
 #include <anton/math/math.hpp>
 
 namespace anton::math {
-    class Vector3;
-    class Vector4;
+    struct Vector3;
+    struct Vector4;
 
-    class Vector2 {
-    public:
+    struct Vector2 {
         union {
             f32 x;
             f32 r;
