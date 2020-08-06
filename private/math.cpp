@@ -2,6 +2,9 @@
 #include <anton/math/vector3.hpp>
 #include <anton/math/vector4.hpp>
 
+#include <anton/math/matrix3.hpp>
+#include <anton/math/matrix4.hpp>
+
 namespace anton::math {
     Vector2::Vector2(Vector3 const& vec): x(vec.x), y(vec.y) {}
     Vector2::Vector2(Vector4 const& vec): x(vec.x), y(vec.y) {}

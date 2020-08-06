@@ -21,7 +21,7 @@ add_library(anton_math
     "${CMAKE_CURRENT_SOURCE_DIR}/public/anton/math/vector2.hpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/public/anton/math/vector3.hpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/public/anton/math/vector4.hpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/private/vector.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/private/math.cpp"
 )
 target_link_libraries(anton_math PUBLIC anton_types)
 target_include_directories(anton_math PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/public")
