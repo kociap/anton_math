@@ -29,6 +29,10 @@ namespace anton::math {
 
         Quaternion() = default;
         Quaternion(f32 x, f32 y, f32 z, f32 w) : x(x), y(y), z(z), w(w) {}
+
+        f32 const* data() const {
+            return &x;
+        }
     };
 
     inline Quaternion const Quaternion::identity = Quaternion(0, 0, 0, 1);
