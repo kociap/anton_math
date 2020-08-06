@@ -5,6 +5,8 @@
 #include <anton/math/detail/utility.hpp>
 
 namespace anton::math {
+    struct Matrix4;
+    
     // Column major
     struct Matrix3 {
     public:
@@ -13,6 +15,7 @@ namespace anton::math {
 
         Matrix3(): columns{} {}
         Matrix3(Vector3 const a, Vector3 const b, Vector3 const c): columns{a, b, c} {}
+        explicit Matrix3(Matrix4 const& matrix);
         explicit Matrix3(f32 const* const p): columns{Vector3{p}, Vector3{p + 3}, Vector3{p + 6}} {}
 
         Vector3& operator[](i32 column) {

@@ -11,4 +11,6 @@ namespace anton::math {
 
     Vector4::Vector4(Vector2 const& vec, f32 z /* = 0.0f */, f32 w /* = 0.0f */): x(vec.x), y(vec.y), z(z), w(w) {}
     Vector4::Vector4(Vector3 const& vec, f32 w /* = 0.0f */): x(vec.x), y(vec.y), z(vec.z), w(w) {}
+
+    Matrix3::Matrix3(Matrix4 const& matrix): columns{Vector3(matrix[0]), Vector3(matrix[1]), Vector3(matrix[2])} {}
 } // namespace anton::math
