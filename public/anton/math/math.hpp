@@ -50,11 +50,12 @@ namespace anton::math {
     constexpr f32 deg_to_rad = pi / 180.0f;
     constexpr f32 rad_to_deg = 180.0f / pi;
     // Largest representable value
-    constexpr f32 largest_representable = 3.402823466e+38F;
+    constexpr f32 largest_representable = 3.402823466e+38f;
     // Smallest number such that 1.0 + epsilon != 1.0
-    constexpr f32 epsilon = 1.192092896e-07F;
+    constexpr f32 epsilon = 1.192092896e-07f;
     // __builtin_huge_valf is supported by all major compilers.
     constexpr f32 infinity = __builtin_huge_valf();
+    constexpr f32 golden_ratio = 1.61803398f;
 
     // Converts degrees to radians.
     //
