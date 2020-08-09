@@ -85,12 +85,12 @@ namespace anton::math {
         return conjugate(q) / length_squared(q);
     }
 
-    // rotate_to_point
+    // orient_towards
     // Constructs a unit quaternion that orients an object towards target from 
     // its inital orientation towards start.
     // start and target must be unit vectors.
     //
-    [[nodiscard]] inline Quat rotate_to_point(Vec3 const start, Vec3 const target) {
+    [[nodiscard]] inline Quat orient_towards(Vec3 const start, Vec3 const target) {
         f32 const angle_cos = dot(target, start);
         f32 const angle = acos(angle_cos);
         // Find the sign of the angle
