@@ -91,12 +91,14 @@ namespace anton::math {
     // start and target must be unit vectors.
     //
     [[nodiscard]] inline Quat orient_towards(Vec3 const start, Vec3 const target) {
-        f32 const angle_cos = dot(target, start);
+        f32 const angle_cos = dot(start, target);
         f32 const angle = acos(angle_cos);
-        // Find the sign of the angle
-        Vec3 const side = cross(axis, start);
-        f32 const angle_sign = sign(dot(side, target));
-        return Quat::from_axis_angle(axis, angle_sign * angle);
+        Vec3 const axis = normalize(cross(start, target));
+        if(!is_almost_zero(axis)) {
+            return Quat::from_axis_angle(axis, angle);
+        } else {
+            return Quat::identity;
+        }
     }
 
     inline void swap(Quat& q1, Quat& q2) {
