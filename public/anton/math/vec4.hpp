@@ -43,6 +43,10 @@ namespace anton::math {
             return (&x)[index];
         }
 
+        f32* data() {
+            return &x;
+        }
+
         f32 const* data() const {
             return &x;
         }

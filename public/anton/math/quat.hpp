@@ -30,6 +30,10 @@ namespace anton::math {
         Quat() = default;
         Quat(f32 x, f32 y, f32 z, f32 w) : x(x), y(y), z(z), w(w) {}
 
+        f32* data()  {
+            return &x;
+        }
+
         f32 const* data() const {
             return &x;
         }

@@ -31,6 +31,10 @@ namespace anton::math {
             return columns[column][row];
         }
 
+        f32* data()  {
+            return (f32*)columns;
+        }
+
         f32 const* data() const {
             return (f32 const*)columns;
         }
