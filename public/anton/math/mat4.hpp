@@ -19,7 +19,7 @@ namespace anton::math {
             return columns[column];
         }
 
-        Vec4 operator[](i32 const column) const {
+        Vec4 const& operator[](i32 const column) const {
             return columns[column];
         }
 
@@ -27,7 +27,7 @@ namespace anton::math {
             return columns[column][row];
         }
 
-        f32 operator()(i32 const column, i32 const row) const {
+        f32 const& operator()(i32 const column, i32 const row) const {
             return columns[column][row];
         }
 

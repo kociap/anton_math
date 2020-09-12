@@ -29,7 +29,7 @@ namespace anton::math {
             return (&x)[index];
         }
 
-        constexpr f32 operator[](i32 index) const {
+        constexpr f32 const& operator[](i32 index) const {
             return (&x)[index];
         }
 
