@@ -95,7 +95,7 @@ namespace anton::math {
     // start and target must be unit vectors.
     //
     [[nodiscard]] inline Quat orient_towards(Vec3 const start, Vec3 const target) {
-        f32 const angle_cos = dot(start, target);
+        f32 const angle_cos = clamp(dot(start, target), -1.0f, 1.0f);
         f32 const angle = acos(angle_cos);
         Vec3 const axis = normalize(cross(start, target));
         if(!is_almost_zero(axis)) {
