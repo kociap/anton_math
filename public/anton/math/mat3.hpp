@@ -18,27 +18,27 @@ namespace anton::math {
         explicit Mat3(Mat4 const& mat);
         explicit Mat3(f32 const* const p): columns{Vec3{p}, Vec3{p + 3}, Vec3{p + 6}} {}
 
-        Vec3& operator[](i32 column) {
+        [[nodiscard]] Vec3& operator[](i32 column) {
             return columns[column];
         }
 
-        Vec3 const& operator[](i32 column) const {
+        [[nodiscard]] Vec3 const& operator[](i32 column) const {
             return columns[column];
         }
 
-        f32& operator()(i32 const column, i32 const row) {
+        [[nodiscard]] f32& operator()(i32 const column, i32 const row) {
             return columns[column][row];
         }
 
-        f32 const& operator()(i32 const column, i32 const row) const {
+        [[nodiscard]] f32 const& operator()(i32 const column, i32 const row) const {
             return columns[column][row];
         }
 
-        f32* data()  {
+        [[nodiscard]] f32* data()  {
             return (f32*)columns;
         }
 
-        f32 const* data() const {
+        [[nodiscard]] f32 const* data() const {
             return (f32 const*)columns;
         }
 
@@ -101,42 +101,42 @@ namespace anton::math {
     inline Mat3 const Mat3::zero = Mat3();
     inline Mat3 const Mat3::identity = Mat3({1, 0, 0}, {0, 1, 0}, {0, 0, 1});
 
-    inline Mat3 operator+(Mat3 m, f32 a) {
+    [[nodiscard]] inline Mat3 operator+(Mat3 m, f32 a) {
         m += a;
         return m;
     }
 
-    inline Mat3 operator-(Mat3 m, f32 a) {
+    [[nodiscard]] inline Mat3 operator-(Mat3 m, f32 a) {
         m -= a;
         return m;
     }
 
-    inline Mat3 operator*(Mat3 m, f32 a) {
+    [[nodiscard]] inline Mat3 operator*(Mat3 m, f32 a) {
         m *= a;
         return m;
     }
 
-    inline Mat3 operator/(Mat3 m, f32 a) {
+    [[nodiscard]] inline Mat3 operator/(Mat3 m, f32 a) {
         m /= a;
         return m;
     }
 
-    inline Mat3 operator+(Mat3 lhs, Mat3 const rhs) {
+    [[nodiscard]] inline Mat3 operator+(Mat3 lhs, Mat3 const rhs) {
         lhs += rhs;
         return lhs;
     }
 
-    inline Mat3 operator-(Mat3 lhs, Mat3 const rhs) {
+    [[nodiscard]] inline Mat3 operator-(Mat3 lhs, Mat3 const rhs) {
         lhs -= rhs;
         return lhs;
     }
 
-    inline Mat3 operator*(Mat3 lhs, Mat3 const rhs) {
+    [[nodiscard]] inline Mat3 operator*(Mat3 lhs, Mat3 const rhs) {
         lhs *= rhs;
         return lhs;
     }
 
-    inline Vec3 operator*(Mat3 const lhs, Vec3 const rhs) {
+    [[nodiscard]] inline Vec3 operator*(Mat3 const lhs, Vec3 const rhs) {
         Vec3 r;
         r[0] = rhs[0] * lhs[0][0] + rhs[1] * lhs[1][0] + rhs[2] * lhs[2][0];
         r[1] = rhs[0] * lhs[0][1] + rhs[1] * lhs[1][1] + rhs[2] * lhs[2][1];
@@ -144,18 +144,18 @@ namespace anton::math {
         return r;
     }
 
-    inline Mat3 transpose(Mat3 m) {
+    [[nodiscard]] inline Mat3 transpose(Mat3 m) {
         detail::swap(m[0][1], m[1][0]);
         detail::swap(m[0][2], m[2][0]);
         detail::swap(m[1][2], m[2][1]);
         return m;
     }
 
-    inline static f32 _determinant2x2(f32 m00, f32 m01, f32 m10, f32 m11) {
+    [[nodiscard]] inline static f32 _determinant2x2(f32 m00, f32 m01, f32 m10, f32 m11) {
         return m00 * m11 - m01 * m10;
     }
 
-    inline f32 determinant(Mat3 const m) {
+    [[nodiscard]] inline f32 determinant(Mat3 const m) {
         // clang-format off
         return m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) - 
                m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) +
@@ -163,7 +163,7 @@ namespace anton::math {
         // clang-format on
     }
 
-    inline Mat3 adjugate(Mat3 const m) {
+    [[nodiscard]] inline Mat3 adjugate(Mat3 const m) {
         f32 m00 = _determinant2x2(m[1][1], m[1][2], m[2][1], m[2][2]);
         f32 m01 = _determinant2x2(m[1][0], m[1][2], m[2][0], m[2][2]);
         f32 m02 = _determinant2x2(m[1][0], m[1][1], m[2][0], m[2][1]);
@@ -181,7 +181,7 @@ namespace anton::math {
             {m02, -m12, m22});
     }
 
-    inline Mat3 inverse(Mat3 const m) {
+    [[nodiscard]] inline Mat3 inverse(Mat3 const m) {
         return adjugate(m) / determinant(m);
     }
 

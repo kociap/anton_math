@@ -15,27 +15,27 @@ namespace anton::math {
         Mat2(Vec2 const a, Vec2 const b): columns{a, b} {}
         explicit Mat2(f32 const* const p): columns{Vec2{p}, Vec2{p + 2}} {}
 
-        Vec2& operator[](i32 const column) {
+        [[nodiscard]] Vec2& operator[](i32 const column) {
             return columns[column];
         }
 
-        Vec2 const& operator[](i32 const column) const {
+        [[nodiscard]] Vec2 const& operator[](i32 const column) const {
             return columns[column];
         }
 
-        f32& operator()(i32 const column, i32 const row) {
+        [[nodiscard]] f32& operator()(i32 const column, i32 const row) {
             return columns[column][row];
         }
 
-        f32 const& operator()(i32 const column, i32 const row) const {
+        [[nodiscard]] f32 const& operator()(i32 const column, i32 const row) const {
             return columns[column][row];
         }
 
-        f32* data()  {
+        [[nodiscard]] f32* data()  {
             return (f32*)columns;
         }
 
-        f32 const* data() const {
+        [[nodiscard]] f32 const* data() const {
             return (f32 const*)columns;
         }
 
@@ -91,62 +91,62 @@ namespace anton::math {
     inline Mat2 const Mat2::zero = Mat2();
     inline Mat2 const Mat2::identity = Mat2({1, 0}, {0, 1});
 
-    inline Mat2 operator+(Mat2 m, f32 const a) {
+    [[nodiscard]] inline Mat2 operator+(Mat2 m, f32 const a) {
         m += a;
         return m;
     }
 
-    inline Mat2 operator-(Mat2 m, f32 const a) {
+    [[nodiscard]] inline Mat2 operator-(Mat2 m, f32 const a) {
         m -= a;
         return m;
     }
 
-    inline Mat2 operator*(Mat2 m, f32 const a) {
+    [[nodiscard]] inline Mat2 operator*(Mat2 m, f32 const a) {
         m *= a;
         return m;
     }
 
-    inline Mat2 operator/(Mat2 m, f32 const a) {
+    [[nodiscard]] inline Mat2 operator/(Mat2 m, f32 const a) {
         m /= a;
         return m;
     }
 
-    inline Mat2 operator+(Mat2 lhs, Mat2 const rhs) {
+    [[nodiscard]] inline Mat2 operator+(Mat2 lhs, Mat2 const rhs) {
         lhs += rhs;
         return lhs;
     }
 
-    inline Mat2 operator-(Mat2 lhs, Mat2 const rhs) {
+    [[nodiscard]] inline Mat2 operator-(Mat2 lhs, Mat2 const rhs) {
         lhs -= rhs;
         return lhs;
     }
 
-    inline Mat2 operator*(Mat2 lhs, Mat2 const rhs) {
+    [[nodiscard]] inline Mat2 operator*(Mat2 lhs, Mat2 const rhs) {
         lhs *= rhs;
         return lhs;
     }
 
-    inline Vec2 operator*(Mat2 const lhs, Vec2 const rhs) {
+    [[nodiscard]] inline Vec2 operator*(Mat2 const lhs, Vec2 const rhs) {
         Vec2 r;
         r[0] = rhs[0] * lhs[0][0] + rhs[1] * lhs[1][0];
         r[1] = rhs[0] * lhs[0][1] + rhs[1] * lhs[1][1];
         return r;
     }
 
-    inline Mat2 transpose(Mat2 m) {
+    [[nodiscard]] inline Mat2 transpose(Mat2 m) {
         detail::swap(m[1][0], m[0][1]);
         return m;
     }
 
-    inline f32 determinant(Mat2 const m) {
+    [[nodiscard]] inline f32 determinant(Mat2 const m) {
         return m[0][0] * m[1][1] - m[1][0] * m[0][1];
     }
 
-    inline Mat2 adjugate(Mat2 const m) {
+    [[nodiscard]] inline Mat2 adjugate(Mat2 const m) {
         return {{m[1][1], -m[0][1]}, {-m[1][0], m[0][0]}};
     }
 
-    inline Mat2 inverse(Mat2 const m) {
+    [[nodiscard]] inline Mat2 inverse(Mat2 const m) {
         return adjugate(m) / determinant(m);
     }
 

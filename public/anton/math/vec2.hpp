@@ -25,40 +25,40 @@ namespace anton::math {
         explicit Vec2(Vec4 const& vec4);
         explicit Vec2(f32 const* const p): x(p[0]), y(p[1]) {}
 
-        constexpr f32& operator[](i32 index) {
+        [[nodiscard]] constexpr f32& operator[](i32 index) {
             return (&x)[index];
         }
 
-        constexpr f32 const& operator[](i32 index) const {
+        [[nodiscard]] constexpr f32 const& operator[](i32 index) const {
             return (&x)[index];
         }
 
-        f32* data() {
+        [[nodiscard]] f32* data() {
             return &x;
         }
 
-        f32 const* data() const {
+        [[nodiscard]] f32 const* data() const {
             return &x;
         }
     };
 
-    constexpr Vec2 operator-(Vec2 const& v) {
+    [[nodiscard]] constexpr Vec2 operator-(Vec2 const& v) {
         return {-v.x, -v.y};
     }
 
-    constexpr Vec2& operator+=(Vec2& v, Vec2 a) {
+    [[nodiscard]] constexpr Vec2& operator+=(Vec2& v, Vec2 a) {
         v.x += a.x;
         v.y += a.y;
         return v;
     }
 
-    constexpr Vec2& operator-=(Vec2& v, Vec2 a) {
+    [[nodiscard]] constexpr Vec2& operator-=(Vec2& v, Vec2 a) {
         v.x -= a.x;
         v.y -= a.y;
         return v;
     }
 
-    constexpr Vec2& operator+=(Vec2& v, f32 a) {
+    [[nodiscard]] constexpr Vec2& operator+=(Vec2& v, f32 a) {
         v.x += a;
         v.y += a;
         return v;
@@ -66,7 +66,7 @@ namespace anton::math {
 
     // Componentwise multiply.
     //
-    constexpr Vec2& operator*=(Vec2& v, Vec2 a) {
+    [[nodiscard]] constexpr Vec2& operator*=(Vec2& v, Vec2 a) {
         v.x *= a.x;
         v.y *= a.y;
         return v;
@@ -74,105 +74,105 @@ namespace anton::math {
 
     // Componentwise divide.
     //
-    constexpr Vec2& operator/=(Vec2& v, Vec2 a) {
+    [[nodiscard]] constexpr Vec2& operator/=(Vec2& v, Vec2 a) {
         v.x /= a.x;
         v.y /= a.y;
         return v;
     }
 
-    constexpr Vec2& operator-=(Vec2& v, f32 a) {
+    [[nodiscard]] constexpr Vec2& operator-=(Vec2& v, f32 a) {
         v.x -= a;
         v.y -= a;
         return v;
     }
 
-    constexpr Vec2& operator*=(Vec2& v, f32 a) {
+    [[nodiscard]] constexpr Vec2& operator*=(Vec2& v, f32 a) {
         v.x *= a;
         v.y *= a;
         return v;
     }
 
-    constexpr Vec2& operator/=(Vec2& v, f32 a) {
+    [[nodiscard]] constexpr Vec2& operator/=(Vec2& v, f32 a) {
         v.x /= a;
         v.y /= a;
         return v;
     }
 
-    constexpr Vec2 operator+(Vec2 a, Vec2 b) {
+    [[nodiscard]] constexpr Vec2 operator+(Vec2 a, Vec2 b) {
         a += b;
         return a;
     }
 
-    constexpr Vec2 operator-(Vec2 a, Vec2 b) {
+    [[nodiscard]] constexpr Vec2 operator-(Vec2 a, Vec2 b) {
         a -= b;
         return a;
     }
 
     // Componentwise multiply.
     //
-    constexpr Vec2 operator*(Vec2 a, Vec2 b) {
+    [[nodiscard]] constexpr Vec2 operator*(Vec2 a, Vec2 b) {
         return {a.x * b.x, a.y * b.y};
     }
 
     // Componentwise divide.
     //
-    constexpr Vec2 operator/(Vec2 a, Vec2 b) {
+    [[nodiscard]] constexpr Vec2 operator/(Vec2 a, Vec2 b) {
         return {a.x / b.x, a.y / b.y};
     }
 
-    constexpr Vec2 operator+(Vec2 a, f32 b) {
+    [[nodiscard]] constexpr Vec2 operator+(Vec2 a, f32 b) {
         a += b;
         return a;
     }
 
-    constexpr Vec2 operator-(Vec2 a, f32 b) {
+    [[nodiscard]] constexpr Vec2 operator-(Vec2 a, f32 b) {
         a -= b;
         return a;
     }
 
-    constexpr Vec2 operator*(Vec2 a, f32 b) {
+    [[nodiscard]] constexpr Vec2 operator*(Vec2 a, f32 b) {
         a *= b;
         return a;
     }
 
-    constexpr Vec2 operator*(f32 b, Vec2 a) {
+    [[nodiscard]] constexpr Vec2 operator*(f32 b, Vec2 a) {
         a *= b;
         return a;
     }
 
-    constexpr Vec2 operator/(Vec2 a, f32 b) {
+    [[nodiscard]] constexpr Vec2 operator/(Vec2 a, f32 b) {
         a /= b;
         return a;
     }
 
-    constexpr bool operator==(Vec2 a, Vec2 b) {
+    [[nodiscard]] constexpr bool operator==(Vec2 a, Vec2 b) {
         return a.x == b.x && a.y == b.y;
     }
 
-    constexpr bool operator!=(Vec2 a, Vec2 b) {
+    [[nodiscard]] constexpr bool operator!=(Vec2 a, Vec2 b) {
         return a.x != b.x || a.y != b.y;
     }
 
-    constexpr bool is_almost_zero(Vec2 const v, f32 const tolerance = 0.000001f) {
+    [[nodiscard]] constexpr bool is_almost_zero(Vec2 const v, f32 const tolerance = 0.000001f) {
         return math::abs(v.x) <= tolerance && math::abs(v.y) <= tolerance;
     }
 
-    constexpr f32 dot(Vec2 const vec1, Vec2 const vec2) {
+    [[nodiscard]] constexpr f32 dot(Vec2 const vec1, Vec2 const vec2) {
         return vec1.x * vec2.x + vec1.y * vec2.y;
     }
 
-    constexpr f32 length_squared(Vec2 const v) {
+    [[nodiscard]] constexpr f32 length_squared(Vec2 const v) {
         return v.x * v.x + v.y * v.y;
     }
 
-    inline f32 length(Vec2 const v) {
+    [[nodiscard]] inline f32 length(Vec2 const v) {
         return math::sqrt(v.x * v.x + v.y * v.y);
     }
 
     // normalize
     // If vec is non-zero, returns normalized copy of the vec.
     // Otherwise returns zero vec.
-    inline Vec2 normalize(Vec2 vec, f32 const tolerance = 0.000001f) {
+    [[nodiscard]] inline Vec2 normalize(Vec2 vec, f32 const tolerance = 0.000001f) {
         if(!is_almost_zero(vec, tolerance)) {
             f32 const inverse_vec_length = math::inv_sqrt(length_squared(vec));
             return vec * inverse_vec_length;
@@ -181,7 +181,7 @@ namespace anton::math {
         }
     }
 
-    constexpr Vec2 lerp(Vec2 const a, Vec2 const b, f32 const t) {
+    [[nodiscard]] constexpr Vec2 lerp(Vec2 const a, Vec2 const b, f32 const t) {
         return (1.0f - t) * a + t * b;
     }
 
