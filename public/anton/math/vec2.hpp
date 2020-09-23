@@ -46,19 +46,19 @@ namespace anton::math {
         return {-v.x, -v.y};
     }
 
-    [[nodiscard]] constexpr Vec2& operator+=(Vec2& v, Vec2 a) {
+    constexpr Vec2& operator+=(Vec2& v, Vec2 a) {
         v.x += a.x;
         v.y += a.y;
         return v;
     }
 
-    [[nodiscard]] constexpr Vec2& operator-=(Vec2& v, Vec2 a) {
+    constexpr Vec2& operator-=(Vec2& v, Vec2 a) {
         v.x -= a.x;
         v.y -= a.y;
         return v;
     }
 
-    [[nodiscard]] constexpr Vec2& operator+=(Vec2& v, f32 a) {
+    constexpr Vec2& operator+=(Vec2& v, f32 a) {
         v.x += a;
         v.y += a;
         return v;
@@ -66,7 +66,7 @@ namespace anton::math {
 
     // Componentwise multiply.
     //
-    [[nodiscard]] constexpr Vec2& operator*=(Vec2& v, Vec2 a) {
+    constexpr Vec2& operator*=(Vec2& v, Vec2 a) {
         v.x *= a.x;
         v.y *= a.y;
         return v;
@@ -74,25 +74,25 @@ namespace anton::math {
 
     // Componentwise divide.
     //
-    [[nodiscard]] constexpr Vec2& operator/=(Vec2& v, Vec2 a) {
+    constexpr Vec2& operator/=(Vec2& v, Vec2 a) {
         v.x /= a.x;
         v.y /= a.y;
         return v;
     }
 
-    [[nodiscard]] constexpr Vec2& operator-=(Vec2& v, f32 a) {
+    constexpr Vec2& operator-=(Vec2& v, f32 a) {
         v.x -= a;
         v.y -= a;
         return v;
     }
 
-    [[nodiscard]] constexpr Vec2& operator*=(Vec2& v, f32 a) {
+    constexpr Vec2& operator*=(Vec2& v, f32 a) {
         v.x *= a;
         v.y *= a;
         return v;
     }
 
-    [[nodiscard]] constexpr Vec2& operator/=(Vec2& v, f32 a) {
+    constexpr Vec2& operator/=(Vec2& v, f32 a) {
         v.x /= a;
         v.y /= a;
         return v;

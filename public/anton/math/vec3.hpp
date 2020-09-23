@@ -51,14 +51,14 @@ namespace anton::math {
         return {-v.x, -v.y, -v.z};
     }
 
-    [[nodiscard]] constexpr Vec3& operator+=(Vec3& v, Vec3 a) {
+    constexpr Vec3& operator+=(Vec3& v, Vec3 a) {
         v.x += a.x;
         v.y += a.y;
         v.z += a.z;
         return v;
     }
 
-    [[nodiscard]] constexpr Vec3& operator-=(Vec3& v, Vec3 a) {
+    constexpr Vec3& operator-=(Vec3& v, Vec3 a) {
         v.x -= a.x;
         v.y -= a.y;
         v.z -= a.z;
@@ -67,42 +67,42 @@ namespace anton::math {
 
     // Componentwise multiply.
     //
-    [[nodiscard]] constexpr Vec3& operator*=(Vec3& v, Vec3 a) {
+    constexpr Vec3& operator*=(Vec3& v, Vec3 a) {
         v.x *= a.x;
         v.y *= a.y;
         v.z *= a.z;
         return v;
     }
 
-    [[nodiscard]] constexpr Vec3& operator/=(Vec3& v, Vec3 a) {
+    constexpr Vec3& operator/=(Vec3& v, Vec3 a) {
         v.x /= a.x;
         v.y /= a.y;
         v.z /= a.z;
         return v;
     }
 
-    [[nodiscard]] constexpr Vec3& operator+=(Vec3& v, f32 a) {
+    constexpr Vec3& operator+=(Vec3& v, f32 a) {
         v.x += a;
         v.y += a;
         v.z += a;
         return v;
     }
 
-    [[nodiscard]] constexpr Vec3& operator-=(Vec3& v, f32 a) {
+    constexpr Vec3& operator-=(Vec3& v, f32 a) {
         v.x -= a;
         v.y -= a;
         v.z -= a;
         return v;
     }
 
-    [[nodiscard]] constexpr Vec3& operator*=(Vec3& v, f32 a) {
+    constexpr Vec3& operator*=(Vec3& v, f32 a) {
         v.x *= a;
         v.y *= a;
         v.z *= a;
         return v;
     }
 
-    [[nodiscard]] constexpr Vec3& operator/=(Vec3& v, f32 a) {
+    constexpr Vec3& operator/=(Vec3& v, f32 a) {
         v.x /= a;
         v.y /= a;
         v.z /= a;
