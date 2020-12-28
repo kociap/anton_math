@@ -75,7 +75,7 @@ namespace anton::math {
         }
     }
 
-    Quat slerp(Quat const a, Quat const b, f32 const t) {
+    Quat slerp(Quat const& a, Quat const& b, f32 const t) {
         Vec4 const v0{a.x, a.y, a.z, a.w};
         Vec4 const v1{b.x, b.y, b.z, b.w};
         f32 const angle_cos = clamp(dot(v0, v1), -1.0f, 1.0f);
