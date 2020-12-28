@@ -1,6 +1,5 @@
 #pragma once
 
-#include <anton/math/detail/utility.hpp>
 #include <anton/math/math.hpp>
 
 namespace anton::math {
@@ -28,193 +27,75 @@ namespace anton::math {
             f32 a;
         };
 
-        constexpr Vec4(): x(0.0f), y(0.0f), z(0.0f), w(0.0f) {}
-        explicit constexpr Vec4(f32 v): x(v), y(v), z(v), w(v) {}
-        constexpr Vec4(f32 x, f32 y, f32 z, f32 w): x(x), y(y), z(z), w(w) {}
+        Vec4();
+        explicit Vec4(f32 v);
+        Vec4(f32 x, f32 y, f32 z, f32 w);
         explicit Vec4(Vec2 const& vec2, f32 z = 0.0f, f32 w = 0.0f);
         explicit Vec4(Vec3 const& vec3, f32 w = 0.0f);
-        explicit Vec4(f32 const* const p): x(p[0]), y(p[1]), z(p[2]), w(p[3]) {}
+        explicit Vec4(f32 const* const p);
 
-        [[nodiscard]] constexpr f32& operator[](i32 index) {
-            return (&x)[index];
-        }
+        [[nodiscard]] f32& operator[](i32 index);
+        [[nodiscard]] f32 const& operator[](i32 index) const;
 
-        [[nodiscard]] constexpr f32 const& operator[](i32 index) const {
-            return (&x)[index];
-        }
-
-        [[nodiscard]] f32* data() {
-            return &x;
-        }
-
-        [[nodiscard]] f32 const* data() const {
-            return &x;
-        }
+        [[nodiscard]] f32* data();
+        [[nodiscard]] f32 const* data() const;
     };
 
-    [[nodiscard]] constexpr Vec4 operator-(Vec4 const& v) {
-        return {-v.x, -v.y, -v.z, -v.w};
-    }
-
-    constexpr Vec4& operator+=(Vec4& v, Vec4 a) {
-        v.x += a.x;
-        v.y += a.y;
-        v.z += a.z;
-        v.w += a.w;
-        return v;
-    }
-
-    constexpr Vec4& operator-=(Vec4& v, Vec4 a) {
-        v.x -= a.x;
-        v.y -= a.y;
-        v.z -= a.z;
-        v.w -= a.w;
-        return v;
-    }
+    [[nodiscard]] Vec4 operator-(Vec4 const& v);
+    Vec4& operator+=(Vec4& v, Vec4 const& a);
+    Vec4& operator-=(Vec4& v, Vec4 const& a);
 
     // Componentwise multiply.
     //
-    constexpr Vec4& operator*=(Vec4& v, Vec4 a) {
-        v.x *= a.x;
-        v.y *= a.y;
-        v.z *= a.z;
-        v.w *= a.w;
-        return v;
-    }
+    Vec4& operator*=(Vec4& v, Vec4 const& a);
 
     // Componentwise divide.
     //
-    constexpr Vec4& operator/=(Vec4& v, Vec4 a) {
-        v.x /= a.x;
-        v.y /= a.y;
-        v.z /= a.z;
-        v.w /= a.w;
-        return v;
-    }
+    Vec4& operator/=(Vec4& v, Vec4 const& a);
 
-    constexpr Vec4& operator+=(Vec4& v, f32 a) {
-        v.x += a;
-        v.y += a;
-        v.z += a;
-        v.w += a;
-        return v;
-    }
+    Vec4& operator+=(Vec4& v, f32 a);
+    Vec4& operator-=(Vec4& v, f32 a);
+    Vec4& operator*=(Vec4& v, f32 a);
+    Vec4& operator/=(Vec4& v, f32 a);
 
-    constexpr Vec4& operator-=(Vec4& v, f32 a) {
-        v.x -= a;
-        v.y -= a;
-        v.z -= a;
-        v.w -= a;
-        return v;
-    }
-
-    constexpr Vec4& operator*=(Vec4& v, f32 a) {
-        v.x *= a;
-        v.y *= a;
-        v.z *= a;
-        v.w *= a;
-        return v;
-    }
-
-    constexpr Vec4& operator/=(Vec4& v, f32 a) {
-        v.x /= a;
-        v.y /= a;
-        v.z /= a;
-        v.w /= a;
-        return v;
-    }
-
-    [[nodiscard]] constexpr Vec4 operator+(Vec4 a, Vec4 b) {
-        a += b;
-        return a;
-    }
-
-    [[nodiscard]] constexpr Vec4 operator-(Vec4 a, Vec4 b) {
-        a -= b;
-        return a;
-    }
+    [[nodiscard]] Vec4 operator+(Vec4 const& a, Vec4 const& b);
+    [[nodiscard]] Vec4 operator-(Vec4 const& a, Vec4 const& b);
 
     // Componentwise multiply.
     //
-    [[nodiscard]] constexpr Vec4 operator*(Vec4 a, Vec4 b) {
-        return {a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w};
-    }
+    [[nodiscard]] Vec4 operator*(Vec4 const& a, Vec4 const& b);
 
     // Componentwise divide.
     //
-    [[nodiscard]] constexpr Vec4 operator/(Vec4 a, Vec4 b) {
-        return {a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w};
-    }
+    [[nodiscard]] Vec4 operator/(Vec4 const& a, Vec4 const& b);
 
-    [[nodiscard]] constexpr Vec4 operator+(Vec4 a, f32 b) {
-        a += b;
-        return a;
-    }
-
-    [[nodiscard]] constexpr Vec4 operator-(Vec4 a, f32 b) {
-        a -= b;
-        return a;
-    }
-
-    [[nodiscard]] constexpr Vec4 operator*(Vec4 a, f32 b) {
-        a *= b;
-        return a;
-    }
-
-    [[nodiscard]] constexpr Vec4 operator*(f32 b, Vec4 a) {
-        a *= b;
-        return a;
-    }
-
-    [[nodiscard]] constexpr Vec4 operator/(Vec4 a, f32 b) {
-        a /= b;
-        return a;
-    }
-
-    [[nodiscard]] constexpr bool operator==(Vec4 a, Vec4 b) {
-        return a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w;
-    }
-
-    [[nodiscard]] constexpr bool operator!=(Vec4 a, Vec4 b) {
-        return a.x != b.x || a.y != b.y || a.z != b.z || a.w != b.w;
-    }
-
-    [[nodiscard]] constexpr bool is_almost_zero(Vec4 const v, f32 const tolerance = 0.000001f) {
-        return math::abs(v.x) <= tolerance && math::abs(v.y) <= tolerance && math::abs(v.z) <= tolerance && math::abs(v.w) <= tolerance;
-    }
-
-    [[nodiscard]] constexpr f32 dot(Vec4 const v1, Vec4 const v2) {
-        return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
-    }
-
-    [[nodiscard]] constexpr f32 length_squared(Vec4 const v) {
-        return v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w;
-    }
-
-    [[nodiscard]] inline f32 length(Vec4 const v) {
-        return math::sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
-    }
+    [[nodiscard]] Vec4 operator+(Vec4 const& a, f32 b);
+    [[nodiscard]] Vec4 operator-(Vec4 const& a, f32 b);
+    [[nodiscard]] Vec4 operator*(Vec4 const& a, f32 b);
+    [[nodiscard]] Vec4 operator*(f32 b, Vec4 const& a);
+    [[nodiscard]] Vec4 operator/(Vec4 const& a, f32 b);
+    [[nodiscard]] bool operator==(Vec4 const& a, Vec4 const& b);
+    [[nodiscard]] bool operator!=(Vec4 const& a, Vec4 const& b);
+    [[nodiscard]] bool is_almost_zero(Vec4 const& v, f32 tolerance = 0.000001f);
+    [[nodiscard]] f32 dot(Vec4 const& v1, Vec4 const& v2);
+    [[nodiscard]] f32 length_squared(Vec4 const& v);
+    [[nodiscard]] f32 length(Vec4 const& v);
 
     // normalize
     // If vec is non-zero, returns normalized copy of the vec.
     // Otherwise returns zero vec.
-    [[nodiscard]] inline Vec4 normalize(Vec4 vec, f32 const tolerance = 0.000001f) {
-        if(!is_almost_zero(vec, tolerance)) {
-            f32 const inverse_vec_length = math::inv_sqrt(length_squared(vec));
-            return vec * inverse_vec_length;
-        } else {
-            return Vec4{};
-        }
-    }
+    [[nodiscard]] Vec4 normalize(Vec4 vec, f32 tolerance = 0.000001f);
 
-    [[nodiscard]] constexpr Vec4 lerp(Vec4 const a, Vec4 const b, f32 const t) {
-        return (1.0f - t) * a + t * b;
-    }
+    // lerp
+    // Computes the linear interpolation between a and b for the parameter t in the interval [0, 1].
+    //
+    [[nodiscard]] Vec4 lerp(Vec4 const& a, Vec4 const& b, f32 t);
 
-    constexpr void swap(Vec4& a, Vec4& b) {
-        detail::swap(a.x, b.x);
-        detail::swap(a.y, b.y);
-        detail::swap(a.z, b.z);
-        detail::swap(a.w, b.w);
-    }
+    // slerp
+    // Computes the spherical interpolation between a and b for the parameter t in the interval [0, 1].
+    // Both vectors a and b must be non-zero.
+    //
+    [[nodiscard]] Vec4 slerp(Vec4 const& a, Vec4 const& b, f32 t);
+
+    void swap(Vec4& a, Vec4& b);
 } // namespace anton::math

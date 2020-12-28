@@ -1,26 +1,22 @@
 #pragma once
 
-#include <anton/math/detail/utility.hpp>
+
 #include <anton/math/math.hpp>
 #include <anton/math/vec3.hpp>
 
 namespace anton::math {
     struct Quat {
+        // Identity quat.
+        // Equivalent to Quat(0, 0, 0, 1)
+        static Quat const identity;
+
         // from_axis_angle
-        // Constructs quat from given axis and angle.
+        // Constructs Quat from given axis and angle.
         //
         // axis - normalized axis of rotation.
         // angle - angle of rotation in radians.
         //
-        [[nodiscard]] static Quat from_axis_angle(Vec3 const axis, f32 const angle) {
-            f32 const sin = math::sin(angle * 0.5f);
-            f32 const cos = math::cos(angle * 0.5f);
-            return {axis.x * sin, axis.y * sin, axis.z * sin, cos};
-        }
-
-        // Identity quat.
-        // Equivalent to Quat(0, 0, 0, 1)
-        static Quat const identity;
+        [[nodiscard]] static Quat from_axis_angle(Vec3 const axis, f32 const angle);
 
         f32 x = 0;
         f32 y = 0;
@@ -28,87 +24,44 @@ namespace anton::math {
         f32 w = 1;
 
         Quat() = default;
-        Quat(f32 x, f32 y, f32 z, f32 w) : x(x), y(y), z(z), w(w) {}
+        Quat(f32 x, f32 y, f32 z, f32 w);
 
-        [[nodiscard]] f32* data()  {
-            return &x;
-        }
-
-        [[nodiscard]] f32 const* data() const {
-            return &x;
-        }
+        [[nodiscard]] f32* data();
+        [[nodiscard]] f32 const* data() const;
     };
 
-    inline Quat const Quat::identity = Quat(0, 0, 0, 1);
-
-    [[nodiscard]] inline Quat operator+(Quat const& q1, Quat const& q2) {
-        return {q1.x + q2.x, q1.y + q2.y, q1.z + q2.z, q1.w + q2.w};
-    }
-
-    [[nodiscard]] inline Quat operator-(Quat const& q1, Quat const& q2) {
-        return {q1.x - q2.x, q1.y - q2.y, q1.z - q2.z, q1.w - q2.w};
-    }
+    [[nodiscard]] Quat operator+(Quat const& q1, Quat const& q2);
+    [[nodiscard]] Quat operator-(Quat const& q1, Quat const& q2);
 
     // Hamilton Product
     //
-    [[nodiscard]] inline Quat operator*(Quat p, Quat q) {
-        return {p.w * q.x + q.w * p.x + p.y * q.z - p.z * q.y,
-                p.w * q.y + q.w * p.y + p.z * q.x - p.x * q.z,
-                p.w * q.z + q.w * p.z + p.x * q.y - p.y * q.x,
-                p.w * q.w - p.x * q.x - p.y * q.y - p.z * q.z};
-    }
+    [[nodiscard]] Quat operator*(Quat const& p, Quat const& q);
 
-    [[nodiscard]] inline Quat operator*(Quat const& q, f32 a) {
-        return {q.x * a, q.y * a, q.z * a, q.w * a};
-    }
-
-    [[nodiscard]] inline Quat operator/(Quat const& q, f32 a) {
-        return {q.x / a, q.y / a, q.z / a, q.w / a};
-    }
-
-    [[nodiscard]] inline f32 length_squared(Quat const& q) {
-        return q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w;
-    }
-
-    [[nodiscard]] inline f32 length(Quat const& q) {
-        return sqrt(length_squared(q));
-    }
-
-    [[nodiscard]] inline Quat normalize(Quat const& q) {
-        return q * math::inv_sqrt(length_squared(q));
-    }
-
-    [[nodiscard]] inline Quat conjugate(Quat const& q) {
-        return {-q.x, -q.y, -q.z, q.w};
-    }
+    [[nodiscard]] Quat operator*(Quat const& q, f32 a);
+    [[nodiscard]] Quat operator/(Quat const& q, f32 a);
+    [[nodiscard]] f32 length_squared(Quat const& q);
+    [[nodiscard]] f32 length(Quat const& q);
+    [[nodiscard]] Quat normalize(Quat const& q);
+    [[nodiscard]] Quat conjugate(Quat const& q);
 
     // inverse
-    // If quat is normalized, this function returns the same result as conjugate.
+    // Calculates the multiplicative inverse of q. q must be non-zero.
+    // If q is normalized, this function returns the same result as conjugate.
     //
-    [[nodiscard]] inline Quat inverse(Quat const& q) {
-        return conjugate(q) / length_squared(q);
-    }
+    [[nodiscard]] Quat inverse(Quat const& q);
 
     // orient_towards
     // Constructs a unit quaternion that orients an object towards target from 
     // its inital orientation towards start.
     // start and target must be unit vectors.
     //
-    [[nodiscard]] inline Quat orient_towards(Vec3 const start, Vec3 const target) {
-        f32 const angle_cos = clamp(dot(start, target), -1.0f, 1.0f);
-        f32 const angle = acos(angle_cos);
-        Vec3 const axis = normalize(cross(start, target));
-        if(!is_almost_zero(axis)) {
-            return Quat::from_axis_angle(axis, angle);
-        } else {
-            return Quat::identity;
-        }
-    }
+    [[nodiscard]] Quat orient_towards(Vec3 const start, Vec3 const target);
 
-    inline void swap(Quat& q1, Quat& q2) {
-        detail::swap(q1.x, q2.x);
-        detail::swap(q1.y, q2.y);
-        detail::swap(q1.z, q2.z);
-        detail::swap(q1.w, q2.w);
-    }
+    // slerp
+    // Computes the spherical interpolation between a and b for the parameter t in the interval [0, 1].
+    // Both a and b must be unit quaternions.
+    //
+    [[nodiscard]] Quat slerp(Quat const& a, Quat const& b, f32 t);
+
+    void swap(Quat& q1, Quat& q2);
 } // namespace anton::math

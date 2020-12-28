@@ -21,10 +21,16 @@ add_library(anton_math
     "${CMAKE_CURRENT_SOURCE_DIR}/public/anton/math/vec2.hpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/public/anton/math/vec3.hpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/public/anton/math/vec4.hpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/private/math.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/private/mat2.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/private/mat3.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/private/mat4.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/private/quat.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/private/vec2.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/private/vec3.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/private/vec4.cpp"
 )
 target_link_libraries(anton_math PUBLIC anton_types)
-target_include_directories(anton_math PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/public")
+target_include_directories(anton_math PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/public" PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/private")
 set_target_properties(anton_math 
     PROPERTIES
     WINDOWS_EXPORT_ALL_SYMBOLS TRUE
