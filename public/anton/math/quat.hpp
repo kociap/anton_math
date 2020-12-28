@@ -30,6 +30,7 @@ namespace anton::math {
         [[nodiscard]] f32 const* data() const;
     };
 
+    [[nodiscard]] Quat operator-(Quat const& q);
     [[nodiscard]] Quat operator+(Quat const& q1, Quat const& q2);
     [[nodiscard]] Quat operator-(Quat const& q1, Quat const& q2);
 

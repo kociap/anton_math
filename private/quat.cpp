@@ -21,6 +21,10 @@ namespace anton::math {
         return &x;
     }
 
+    Quat operator-(Quat const& q) {
+        return {-q.x, -q.y, -q.z, -q.w};
+    }
+
     Quat operator+(Quat const& q1, Quat const& q2) {
         return {q1.x + q2.x, q1.y + q2.y, q1.z + q2.z, q1.w + q2.w};
     }
@@ -77,10 +81,15 @@ namespace anton::math {
 
     Quat slerp(Quat const& a, Quat const& b, f32 const t) {
         Vec4 const v0{a.x, a.y, a.z, a.w};
-        Vec4 const v1{b.x, b.y, b.z, b.w};
-        f32 const angle_cos = clamp(dot(v0, v1), -1.0f, 1.0f);
-        // We use small angle approximation for sin when the angle is < 0.1 radians
-        if(angle_cos < 0.995f) {
+        Vec4 v1{b.x, b.y, b.z, b.w};
+        f32 angle_cos = dot(v0, v1);
+
+        if(angle_cos < 0.0f) {
+            v1 = -v1;
+            angle_cos = -angle_cos;
+        }
+
+        if(angle_cos < 0.9999f) {
             f32 const angle = acos(angle_cos);
             f32 const inv_sin_angle = 1.0f / sin(angle);
             f32 const f0 = inv_sin_angle * sin((1.0f - t) * angle);
