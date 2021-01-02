@@ -78,7 +78,7 @@ namespace anton::math {
     // lerp
     // Computes the linear interpolation between a and b for the parameter t in the interval [0, 1].
     //
-    [[nodiscard]] Vec2 lerp(Vec2 const& a, Vec2 const& b, f32 const t);
+    [[nodiscard]] Vec2 lerp(Vec2 const& a, Vec2 const& b, f32 t);
 
     // slerp
     // Computes the spherical interpolation between a and b for the parameter t in the interval [0, 1].

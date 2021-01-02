@@ -81,12 +81,12 @@ namespace anton::math {
     // If vec is non-zero with given tolerance, returns normalized copy of the vec.
     // Otherwise returns zero vec.
     //
-    [[nodiscard]] Vec3 normalize(Vec3 vec, f32 const tolerance = 0.000001f);
+    [[nodiscard]] Vec3 normalize(Vec3 vec, f32 tolerance = 0.000001f);
 
     // lerp
     // Computes the linear interpolation between a and b for the parameter t in the interval [0, 1].
     //
-    [[nodiscard]] Vec3 lerp(Vec3 const a, Vec3 const b, f32 const t);
+    [[nodiscard]] Vec3 lerp(Vec3 const& a, Vec3 const& b, f32 t);
 
     // slerp
     // Computes the spherical interpolation between a and b for the parameter t in the interval [0, 1].
