@@ -40,6 +40,21 @@ namespace anton::math {
                 p.w * q.w - p.x * q.x - p.y * q.y - p.z * q.z};
     }
 
+    Vec3 operator*(Quat const& q, Vec3 const& v) {
+        f32 const v0 = v.x * (1.0f - 2.0f * q.y * q.y - 2.0f * q.z * q.z) + v.y * (2.0f * q.x * q.y - 2.0f * q.z * q.w) + v.z * (2.0f * q.x * q.z + 2.0f * q.y * q.w);
+        f32 const v1 = v.x * (2.0f * q.x * q.y + 2.0f * q.z * q.w) + v.y * (1.0f - 2.0f * q.x * q.x - 2.0f * q.z * q.z) + v.z * (2.0f * q.y * q.z - 2.0f * q.x * q.w);
+        f32 const v2 = v.x * (2.0f * q.x * q.z - 2.0f * q.y * q.w) + v.y * (2.0f * q.y * q.z + 2.0f * q.x * q.w) + v.z * (1.0f - 2.0f * q.x * q.x - 2.0f * q.y * q.y);
+        return {v0, v1, v2};
+    }
+
+    Vec4 operator*(Quat const& q, Vec4 const& v) {
+        f32 const v0 = v.x * (1.0f - 2.0f * q.y * q.y - 2.0f * q.z * q.z) + v.y * (2.0f * q.x * q.y - 2.0f * q.z * q.w) + v.z * (2.0f * q.x * q.z + 2.0f * q.y * q.w);
+        f32 const v1 = v.x * (2.0f * q.x * q.y + 2.0f * q.z * q.w) + v.y * (1.0f - 2.0f * q.x * q.x - 2.0f * q.z * q.z) + v.z * (2.0f * q.y * q.z - 2.0f * q.x * q.w);
+        f32 const v2 = v.x * (2.0f * q.x * q.z - 2.0f * q.y * q.w) + v.y * (2.0f * q.y * q.z + 2.0f * q.x * q.w) + v.z * (1.0f - 2.0f * q.x * q.x - 2.0f * q.y * q.y);
+        f32 const v3 = v.w;
+        return {v0, v1, v2, v3};
+    }
+
     Quat operator*(Quat const& q, f32 a) {
         return {q.x * a, q.y * a, q.z * a, q.w * a};
     }

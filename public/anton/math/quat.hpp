@@ -1,8 +1,8 @@
 #pragma once
 
-
 #include <anton/math/math.hpp>
 #include <anton/math/vec3.hpp>
+#include <anton/math/vec4.hpp>
 
 namespace anton::math {
     struct Quat {
@@ -37,6 +37,16 @@ namespace anton::math {
     // Hamilton Product
     //
     [[nodiscard]] Quat operator*(Quat const& p, Quat const& q);
+
+    // operator*
+    // Performs rotation of v by q.
+    //
+    Vec3 operator*(Quat const& q, Vec3 const& v);
+
+    // operator*
+    // Performs rotation of v by q.
+    //
+    Vec4 operator*(Quat const& q, Vec4 const& v);
 
     [[nodiscard]] Quat operator*(Quat const& q, f32 a);
     [[nodiscard]] Quat operator/(Quat const& q, f32 a);
