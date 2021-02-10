@@ -65,8 +65,25 @@ namespace anton::math {
     [[nodiscard]] Vec2 operator/(Vec2 const& a, f32 b);
     [[nodiscard]] bool operator==(Vec2 const& a, Vec2 const& b);
     [[nodiscard]] bool operator!=(Vec2 const& a, Vec2 const& b);
+
+    // max
+    // Performs componentwise max on the components of the vectors.
+    //
+    // Returns:
+    // Vec2 where each component is the max of the corresponding components in v1 and v2.
+    //
+    [[nodiscard]] Vec2 max(Vec2 const& v1, Vec2 const& v2);
+
+    // min
+    // Performs componentwise min on the components of the vectors.
+    //
+    // Returns:
+    // Vec2 where each component is the min of the corresponding components in v1 and v2.
+    //
+    [[nodiscard]] Vec2 min(Vec2 const& v1, Vec2 const& v2);
+
     [[nodiscard]] bool is_almost_zero(Vec2 const& v, f32 tolerance = 0.000001f);
-    [[nodiscard]] f32 dot(Vec2 const& vec1, Vec2 const& vec2);
+    [[nodiscard]] f32 dot(Vec2 const& v1, Vec2 const& v2);
     [[nodiscard]] f32 length_squared(Vec2 const& v);
     [[nodiscard]] f32 length(Vec2 const& v);
 

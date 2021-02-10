@@ -71,6 +71,23 @@ namespace anton::math {
     [[nodiscard]] Vec3 operator/(Vec3 const& a, f32 b);
     [[nodiscard]] bool operator==(Vec3 const& a, Vec3 const& b);
     [[nodiscard]] bool operator!=(Vec3 const& a, Vec3 const& b);
+
+    // max
+    // Performs componentwise max on the components of the vectors.
+    //
+    // Returns:
+    // Vec3 where each component is the max of the corresponding components in v1 and v2.
+    //
+    [[nodiscard]] Vec3 max(Vec3 const& v1, Vec3 const& v2);
+
+    // min
+    // Performs componentwise min on the components of the vectors.
+    //
+    // Returns:
+    // Vec3 where each component is the min of the corresponding components in v1 and v2.
+    //
+    [[nodiscard]] Vec3 min(Vec3 const& v1, Vec3 const& v2);
+
     [[nodiscard]] bool is_almost_zero(Vec3 const& v, f32 const tolerance = 0.000001f);
     [[nodiscard]] f32 dot(Vec3 const& v1, Vec3 const& v2);
     [[nodiscard]] Vec3 cross(Vec3 const& v1, Vec3 const& v2);

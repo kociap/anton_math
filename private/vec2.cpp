@@ -123,6 +123,14 @@ namespace anton::math {
         return a.x != b.x || a.y != b.y;
     }
 
+    Vec2 max(Vec2 const& v1, Vec2 const& v2) {
+        return {v1.x > v2.x ? v1.x : v2.x, v1.y > v2.y ? v1.y : v2.y};
+    }
+
+    Vec2 min(Vec2 const& v1, Vec2 const& v2) {
+        return {v1.x < v2.x ? v1.x : v2.x, v1.y < v2.y ? v1.y : v2.y};
+    }
+
     bool is_almost_zero(Vec2 const& v, f32 const tolerance /* = 0.000001f */) {
         return math::abs(v.x) <= tolerance && math::abs(v.y) <= tolerance;
     }

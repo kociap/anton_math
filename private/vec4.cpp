@@ -139,6 +139,14 @@ namespace anton::math {
         return a.x != b.x || a.y != b.y || a.z != b.z || a.w != b.w;
     }
 
+    Vec4 max(Vec4 const& v1, Vec4 const& v2) {
+        return {v1.x > v2.x ? v1.x : v2.x, v1.y > v2.y ? v1.y : v2.y, v1.z > v2.z ? v1.z : v2.z, v1.w > v2.w ? v1.w : v2.w};
+    }
+
+    Vec4 min(Vec4 const& v1, Vec4 const& v2) {
+        return {v1.x < v2.x ? v1.x : v2.x, v1.y < v2.y ? v1.y : v2.y, v1.z < v2.z ? v1.z : v2.z, v1.w < v2.w ? v1.w : v2.w};
+    }
+
     bool is_almost_zero(Vec4 const& v, f32 const tolerance /* = 0.000001f */) {
         return math::abs(v.x) <= tolerance && math::abs(v.y) <= tolerance && math::abs(v.z) <= tolerance && math::abs(v.w) <= tolerance;
     }
