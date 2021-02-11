@@ -145,22 +145,48 @@ namespace anton::math {
         return ::log2f(v);
     }
 
-    template <typename T>
+    template<typename T>
     [[nodiscard]] constexpr T abs(T a) {
         return a < T(0) ? -a : a;
     }
 
-    template <typename T>
+    template<typename T>
     [[nodiscard]] constexpr T max(T a, T b) {
         return a > b ? a : b;
     }
 
-    template <typename T>
+    template<typename T, typename... VT>
+    [[nodiscard]] constexpr T max(T const& arg1, T const& arg2, T const& arg3, VT const&... args) {
+        constexpr i64 array_size = sizeof...(VT) + 3;
+        T const* arg_array[array_size] = {&arg1, &arg2, &arg3, &args...};
+        T const* max_elem = arg_array[0];
+        for(i64 i = 1; i < array_size; ++i) {
+            if(*arg_array[i] > *max_elem) {
+                max_elem = arg_array[i];
+            }
+        }
+        return *max_elem;
+    }
+
+    template<typename T>
     [[nodiscard]] constexpr T min(T a, T b) {
         return a < b ? a : b;
     }
 
-    template <typename T>
+    template<typename T, typename... VT>
+    [[nodiscard]] constexpr T min(T const& arg1, T const& arg2, T const& arg3, VT const&... args) {
+        constexpr i64 array_size = sizeof...(VT) + 3;
+        T const* arg_array[array_size] = {&arg1, &arg2, &arg3, &args...};
+        T const* min_elem = arg_array[0];
+        for(i64 i = 1; i < array_size; ++i) {
+            if(*arg_array[i] < *min_elem) {
+                min_elem = arg_array[i];
+            }
+        }
+        return *min_elem;
+    }
+
+    template<typename T>
     [[nodiscard]] constexpr T clamp(T x, T lower_limit, T upper_limit) {
         return min(max(x, lower_limit), upper_limit);
     }
