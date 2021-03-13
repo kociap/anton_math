@@ -1,4 +1,5 @@
 #include <anton/math/mat2.hpp>
+#include <anton/math/math.hpp>
 #include <detail/utility.hpp>
 
 namespace anton::math {

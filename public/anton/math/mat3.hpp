@@ -1,6 +1,6 @@
 #pragma once
 
-#include <anton/math/math.hpp>
+#include <anton/types.hpp>
 #include <anton/math/vec3.hpp>
 
 namespace anton::math {

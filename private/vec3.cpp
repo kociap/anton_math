@@ -1,6 +1,7 @@
 #include <anton/math/vec2.hpp>
 #include <anton/math/vec3.hpp>
 #include <anton/math/vec4.hpp>
+#include <anton/math/math.hpp>
 #include <detail/utility.hpp>
 
 namespace anton::math {
