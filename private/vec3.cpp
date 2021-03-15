@@ -27,6 +27,12 @@ namespace anton::math {
     f32 const* Vec3::data() const {
         return &x;
     }
+    
+    void swap(Vec3& a, Vec3& b) {
+        detail::swap(a.x, b.x);
+        detail::swap(a.y, b.y);
+        detail::swap(a.z, b.z);
+    }
 
     Vec3 operator-(Vec3 const& v) {
         return {-v.x, -v.y, -v.z};
@@ -189,9 +195,13 @@ namespace anton::math {
         }
     }
 
-    void swap(Vec3& a, Vec3& b) {
-        detail::swap(a.x, b.x);
-        detail::swap(a.y, b.y);
-        detail::swap(a.z, b.z);
+    Vec3 perpendicular(Vec3 const& v) {
+        if(v.x == 0.0f) {
+            return math::normalize(math::Vec3{0.0f, -v.z, v.y});
+        } else if(v.y == 0.0f) {
+            return math::normalize(math::Vec3{-v.z, 0.0f, v.x});
+        } else {
+            return math::normalize(math::Vec3{-v.y, v.x, 0.0f});
+        }
     }
 }

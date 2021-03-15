@@ -27,6 +27,11 @@ namespace anton::math {
     f32 const* Vec2::data() const {
         return &x;
     }
+    
+    void swap(Vec2& a, Vec2& b) {
+        detail::swap(a.x, b.x);
+        detail::swap(a.y, b.y);
+    }
 
     Vec2 operator-(Vec2 const& v) {
         return {-v.x, -v.y};
@@ -175,10 +180,5 @@ namespace anton::math {
         } else {
             return (1.0f - t) * a + t * b;
         }
-    }
-
-    void swap(Vec2& a, Vec2& b) {
-        detail::swap(a.x, b.x);
-        detail::swap(a.y, b.y);
     }
 }

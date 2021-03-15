@@ -35,6 +35,8 @@ namespace anton::math {
         [[nodiscard]] f32* data();
         [[nodiscard]] f32 const* data() const;
     };
+    
+    void swap(Vec3& a, Vec3& b);
 
     [[nodiscard]] Vec3 operator-(Vec3 const& v);
     Vec3& operator+=(Vec3& v, Vec3 const& a);
@@ -111,5 +113,14 @@ namespace anton::math {
     //
     [[nodiscard]] Vec3 slerp(Vec3 const& a, Vec3 const& b, f32 t);
 
-    void swap(Vec3& a, Vec3& b);
+    // perpendicular
+    // Generates a random perpendicular vector to v.
+    //
+    // Parameters:
+    // v - a non-zero vector.
+    //
+    // Returns:
+    // A normalized vector perpendicular to v.
+    //
+    [[nodiscard]] Vec3 perpendicular(Vec3 const& v);
 } // namespace anton::math

@@ -40,6 +40,8 @@ namespace anton::math {
         [[nodiscard]] f32* data();
         [[nodiscard]] f32 const* data() const;
     };
+    
+    void swap(Vec4& a, Vec4& b);
 
     [[nodiscard]] Vec4 operator-(Vec4 const& v);
     Vec4& operator+=(Vec4& v, Vec4 const& a);
@@ -113,6 +115,4 @@ namespace anton::math {
     // Both vectors a and b must be non-zero.
     //
     [[nodiscard]] Vec4 slerp(Vec4 const& a, Vec4 const& b, f32 t);
-
-    void swap(Vec4& a, Vec4& b);
 } // namespace anton::math

@@ -28,6 +28,13 @@ namespace anton::math {
         return &x;
     }
 
+    void swap(Vec4& a, Vec4& b) {
+        detail::swap(a.x, b.x);
+        detail::swap(a.y, b.y);
+        detail::swap(a.z, b.z);
+        detail::swap(a.w, b.w);
+    }
+
     Vec4 operator-(Vec4 const& v) {
         return {-v.x, -v.y, -v.z, -v.w};
     }
@@ -191,12 +198,5 @@ namespace anton::math {
         } else {
             return (1.0f - t) * a + t * b;
         }
-    }
-
-    void swap(Vec4& a, Vec4& b) {
-        detail::swap(a.x, b.x);
-        detail::swap(a.y, b.y);
-        detail::swap(a.z, b.z);
-        detail::swap(a.w, b.w);
     }
 }
