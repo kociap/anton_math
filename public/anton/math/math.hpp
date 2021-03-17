@@ -99,6 +99,12 @@ namespace anton::math {
 
     [[nodiscard]] f32 round(f32 x);
 
+    // round_to_nearest
+    // Rounds x to the nearest multiple of b.
+    // b must be positive.
+    //
+    [[nodiscard]] f32 round_to_nearest(f32 x, f32 b);
+
     [[nodiscard]] f32 floor(f32 x);
 
     [[nodiscard]] f32 ceil(f32 x);

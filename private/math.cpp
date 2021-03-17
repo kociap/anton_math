@@ -164,6 +164,10 @@ namespace anton::math {
         return ::roundf(x);
     }
 
+    f32 round_to_nearest(f32 const x, f32 const b) {
+        return round(x / b) * b;
+    }
+
     f32 floor(f32 const x) {
         return ::floorf(x);
     }
