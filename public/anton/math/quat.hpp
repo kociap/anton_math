@@ -80,10 +80,10 @@ namespace anton::math {
     };
 
     // to_axis_angle
-    // Decomposes a quaternion into axis-angle representation.
+    // Decomposes a unit quaternion into axis-angle representation.
     //
     // Parameters:
-    // q - the quaternion to be decomposed.
+    // q - a unit quaternion to be decomposed.
     //
     // Returns:
     // Axis-angle representation of the quaternion. 
