@@ -74,5 +74,22 @@ namespace anton::math {
     //
     [[nodiscard]] Quat slerp(Quat const& a, Quat const& b, f32 t);
 
+    struct Axis_Angle {
+        Vec3 axis;
+        f32 angle;
+    };
+
+    // to_axis_angle
+    // Decomposes a quaternion into axis-angle representation.
+    //
+    // Parameters:
+    // q - the quaternion to be decomposed.
+    //
+    // Returns:
+    // Axis-angle representation of the quaternion. 
+    // The axis is normalized. The angle is in radians.
+    //
+    [[nodiscard]] Axis_Angle to_axis_angle(Quat const& q);
+
     void swap(Quat& q1, Quat& q2);
 } // namespace anton::math

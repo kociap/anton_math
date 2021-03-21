@@ -118,6 +118,14 @@ namespace anton::math {
         }
     }
 
+    Axis_Angle to_axis_angle(Quat const& q) {
+        f32 const angle = acos(q.w);
+        f32 const sin_angle = sin(angle);
+        Vec3 axis{q.x, q.y, q.z};
+        axis /= sin_angle;
+        return {axis, angle};
+    }
+
     void swap(Quat& q1, Quat& q2) {
         detail::swap(q1.x, q2.x);
         detail::swap(q1.y, q2.y);
