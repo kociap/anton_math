@@ -123,7 +123,7 @@ namespace anton::math {
         f32 const sin_angle = sin(angle);
         Vec3 axis{q.x, q.y, q.z};
         axis /= sin_angle;
-        return {axis, angle};
+        return {axis, 2.0f * angle};
     }
 
     void swap(Quat& q1, Quat& q2) {
