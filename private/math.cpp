@@ -36,6 +36,11 @@ extern "C" {
 }
 
 namespace anton::math {
+    bool is_nan(f32 v) {
+        // nan does not compare equal to anything, including itself.
+        return v != v;
+    }
+
     f32 pow(f32 const base, f32 const exp) {
         return ::powf(base, exp);
     }

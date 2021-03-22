@@ -22,17 +22,24 @@ namespace anton::math {
     constexpr f32 infinity = __builtin_huge_valf();
     constexpr f32 golden_ratio = 1.61803398f;
 
+    // radians
     // Converts degrees to radians.
     //
     [[nodiscard]] constexpr f32 radians(f32 const degrees) {
         return degrees * deg_to_rad;
     }
 
+    // degrees
     // Converts radians to degrees.
     //
     [[nodiscard]] constexpr f32 degrees(f32 const radians) {
         return radians * rad_to_deg;
     }
+
+    // is_nan
+    // Checks whether v is nan.
+    //
+    [[nodiscard]] bool is_nan(f32 v);
 
     [[nodiscard]] f32 pow(f32 base, f32 exp);
 
