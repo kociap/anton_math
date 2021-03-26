@@ -121,8 +121,12 @@ namespace anton::math {
     Axis_Angle to_axis_angle(Quat const& q) {
         f32 const angle = acos(q.w);
         f32 const sin_angle = sin(angle);
-        Vec3 axis{q.x, q.y, q.z};
-        axis /= sin_angle;
+        Vec3 axis{0.0f};
+        if(!is_almost_zero(sin_angle)) {
+            axis = Vec3{q.x, q.y, q.z} / sin_angle;
+            // Renormalize just in case
+            axis = math::normalize(axis);
+        }
         return {axis, 2.0f * angle};
     }
 
