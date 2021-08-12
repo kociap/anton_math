@@ -8,6 +8,17 @@
 
 #include <anton/types.hpp>
 
+extern "C" {
+    #if defined(_WIN32) || defined(_WIN64)
+        // intrin.h
+
+        unsigned char _BitScanReverse(unsigned long *_Index, unsigned long _Mask);
+        unsigned char _BitScanReverse64(unsigned long *_Index, unsigned __int64 _Mask);
+        int __cdecl _mm_popcnt_u32(unsigned int);
+        __int64 __cdecl _mm_popcnt_u64(unsigned __int64);
+    #endif
+}
+
 namespace anton::math {
     constexpr f32 pi = 3.1415926f;
     constexpr f32 half_pi = 1.5707964f;
@@ -191,16 +202,77 @@ namespace anton::math {
     // popcount
     // Counts the number of set bits in v.
     //
-    [[nodiscard]] u8 popcount(u8 v);
-    [[nodiscard]] u16 popcount(u16 v);
-    [[nodiscard]] u32 popcount(u32 v);
-    [[nodiscard]] u64 popcount(u64 v);
+    [[nodiscard]] inline u8 popcount(u8 v) {
+        return _mm_popcnt_u32(v);
+    }
+
+    [[nodiscard]] inline u16 popcount(u16 v) {
+        return _mm_popcnt_u32(v);
+    }
+
+    [[nodiscard]] inline u32 popcount(u32 v) {
+        return _mm_popcnt_u32(v);
+    }
+
+    [[nodiscard]] inline u64 popcount(u64 v) {
+        return _mm_popcnt_u64(v);
+    }
 
     // clz
     // Counts leading zeros.
     //
-    [[nodiscard]] u8 clz(u8 v);
-    [[nodiscard]] u16 clz(u16 v);
-    [[nodiscard]] u32 clz(u32 v);
-    [[nodiscard]] u64 clz(u64 v);
+    // Returns:
+    // The number of leading zeros. If the number is 0, returns bit count.
+    //
+    [[nodiscard]] inline u8 clz(u8 v) {
+        #if ANTON_COMPILER_CLANG
+            return (v != 0 ? __builtin_clz(v) - 24 : 8);
+        #else
+            unsigned long index = 0;
+            if(_BitScanReverse(&index, v)) {
+                return 7 - index;
+            } else {
+                return 8;
+            }
+        #endif
+    }
+
+    [[nodiscard]] inline u16 clz(u16 v) {
+        #if ANTON_COMPILER_CLANG
+            return (v != 0 ? __builtin_clz(v) - 16 : 16);
+        #else
+            unsigned long index = 0;
+            if(_BitScanReverse(&index, v)) {
+                return 15 - index;
+            } else {
+                return 16;
+            }
+        #endif
+    }
+
+    [[nodiscard]] inline u32 clz(u32 v) {
+        #if ANTON_COMPILER_CLANG
+            return (v != 0 ? __builtin_clz(v) : 32);
+        #else
+            unsigned long index = 0;
+            if(_BitScanReverse(&index, v)) {
+                return 31 - index;
+            } else {
+                return 32;
+            }
+        #endif
+    }
+
+    [[nodiscard]] inline u64 clz(u64 v) {
+        #if ANTON_COMPILER_CLANG
+            return (v != 0 ? __builtin_clzll(v) : 64);
+        #else
+            unsigned long index = 0;
+            if(_BitScanReverse64(&index, v)) {
+                return 63 - index;
+            } else {
+                return 64;
+            }
+        #endif
+    }
 } // namespace anton::math
