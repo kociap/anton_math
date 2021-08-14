@@ -13,9 +13,9 @@ extern "C" {
         // intrin.h
 
         unsigned char _BitScanReverse(unsigned long *_Index, unsigned long _Mask);
-        unsigned char _BitScanReverse64(unsigned long *_Index, unsigned __int64 _Mask);
+        unsigned char _BitScanReverse64(unsigned long *_Index, unsigned long long _Mask);
         int __cdecl _mm_popcnt_u32(unsigned int);
-        __int64 __cdecl _mm_popcnt_u64(unsigned __int64);
+        long long __cdecl _mm_popcnt_u64(unsigned long long);
     #endif
 }
 
