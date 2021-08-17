@@ -9,7 +9,7 @@
 #include <anton/types.hpp>
 
 extern "C" {
-    #if defined(_WIN32) || defined(_WIN64)
+    #if ANTON_COMPILER_MSVC
         // intrin.h
 
         unsigned char _BitScanReverse(unsigned long *_Index, unsigned long _Mask);
@@ -203,19 +203,35 @@ namespace anton::math {
     // Counts the number of set bits in v.
     //
     [[nodiscard]] inline u8 popcount(u8 v) {
-        return _mm_popcnt_u32(v);
+        #if ANTON_COMPILER_CLANG
+            return __builtin_popcount(v);
+        #else
+            return _mm_popcnt_u32(v);
+        #endif
     }
 
     [[nodiscard]] inline u16 popcount(u16 v) {
-        return _mm_popcnt_u32(v);
+        #if ANTON_COMPILER_CLANG
+            return __builtin_popcount(v);
+        #else
+            return _mm_popcnt_u32(v);
+        #endif
     }
 
     [[nodiscard]] inline u32 popcount(u32 v) {
-        return _mm_popcnt_u32(v);
+        #if ANTON_COMPILER_CLANG
+            return __builtin_popcount(v);
+        #else
+            return _mm_popcnt_u32(v);
+        #endif
     }
 
     [[nodiscard]] inline u64 popcount(u64 v) {
-        return _mm_popcnt_u64(v);
+        #if ANTON_COMPILER_CLANG
+            return __builtin_popcountll(v);
+        #else
+            return _mm_popcnt_u64(v);
+        #endif
     }
 
     // clz
