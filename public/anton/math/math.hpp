@@ -246,7 +246,7 @@ namespace anton::math {
         #else
             unsigned long index = 0;
             if(_BitScanReverse(&index, v)) {
-                return 7 - index;
+                return 7 - (u8)index;
             } else {
                 return 8;
             }
@@ -259,7 +259,7 @@ namespace anton::math {
         #else
             unsigned long index = 0;
             if(_BitScanReverse(&index, v)) {
-                return 15 - index;
+                return 15 - (u16)index;
             } else {
                 return 16;
             }
