@@ -13,16 +13,16 @@ namespace anton::math {
         Vec3 max;
     };
 
-    // outer_bounds
-    // Forms an extent that encompasses both e1 and e2, i.e. the outer bounds.
+    // outer_extent
+    // Forms an extent that encompasses both e1 and e2, i.e. the outer extent.
     //
     // Parameters:
-    // e1, e2 - extents to calculate the outer bounds of.
+    // e1, e2 - extents to calculate the outer extent of.
     //
     // Returns: 
     // An extent encompassing both e1 and e2.
     //
-    [[nodiscard]] inline Extent3 outer_bounds(Extent3 const& e1, Extent3 const& e2) {
+    [[nodiscard]] inline Extent3 outer_extent(Extent3 const& e1, Extent3 const& e2) {
         return {min(e1.min, e2.min), max(e1.max, e2.max)};
     }
 
