@@ -33,43 +33,24 @@ add_library(anton_math
 )
 target_link_libraries(anton_math PUBLIC anton_types)
 target_include_directories(anton_math PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/public" PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/private")
-set_target_properties(anton_math 
+set_target_properties(anton_math
     PROPERTIES
     WINDOWS_EXPORT_ALL_SYMBOLS TRUE
     CXX_STANDARD 17
     CXX_EXTENSIONS FALSE
 )
 
-# Detect compilers
-
-# clang++ (CLANG)
-string(FIND "${CMAKE_CXX_COMPILER}" "clang++" ANTON_COMPILER_CLANGPP)
-if(ANTON_COMPILER_CLANGPP GREATER -1)
-  set(ANTON_COMPILER_CLANGPP ON)
-else()
-  set(ANTON_COMPILER_CLANGPP OFF)
-endif()
-
-# clang-cl (CLANG)
-string(FIND "${CMAKE_CXX_COMPILER}" "clang-cl" ANTON_COMPILER_CLANGCL)
-if(ANTON_COMPILER_CLANGCL GREATER -1)
-  set(ANTON_COMPILER_CLANGCL ON)
-else()
-  set(ANTON_COMPILER_CLANGCL OFF)
-endif()
+# Detect MSVC as it requires different intrinsics.
 
 # cl (MSVC)
 string(FIND "${CMAKE_CXX_COMPILER}" "cl" ANTON_COMPILER_CL)
 if(ANTON_COMPILER_CL GREATER -1)
-  set(ANTON_COMPILER_CL ON)
+    set(ANTON_COMPILER_CL ON)
 else()
-  set(ANTON_COMPILER_CL OFF)
+    set(ANTON_COMPILER_CL OFF)
 endif()
 
-if(ANTON_COMPILER_CLANGPP OR ANTON_COMPILER_CLANGCL)
-    target_compile_definitions(anton_math PUBLIC ANTON_COMPILER_CLANG=1 ANTON_COMPILER_MSVC=0)
-elseif(ANTON_COMPILER_CL)
-    target_compile_definitions(anton_math PUBLIC ANTON_COMPILER_CLANG=0 ANTON_COMPILER_MSVC=1)
-else()
-    message(FATAL "unrecognized compiler")
-endif()
+target_compile_definitions(anton_math
+    PRIVATE
+    ANTON_COMPILER_CL=$<BOOL:${ANTON_COMPILER_CL}>
+)
