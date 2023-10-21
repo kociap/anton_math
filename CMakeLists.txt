@@ -7,6 +7,7 @@ project(anton_math)
 FetchContent_Declare(
     anton_types
     GIT_REPOSITORY https://github.com/kociap/anton_types.git
+    GIT_TAG e52cc2d7e364bbbdaf185ce176de488d3df7448e
 )
 FetchContent_MakeAvailable(anton_types)
 
