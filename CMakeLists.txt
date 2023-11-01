@@ -7,7 +7,7 @@ project(anton_math)
 FetchContent_Declare(
     anton_types
     GIT_REPOSITORY https://github.com/kociap/anton_types.git
-    GIT_TAG e52cc2d7e364bbbdaf185ce176de488d3df7448e
+    GIT_TAG 77cd0eb15dd4bd0e7796f4e7acac59ab7713c0a0
 )
 FetchContent_MakeAvailable(anton_types)
 
@@ -52,6 +52,6 @@ else()
 endif()
 
 target_compile_definitions(anton_math
-    PRIVATE
+    PUBLIC
     ANTON_COMPILER_CL=$<BOOL:${ANTON_COMPILER_CL}>
 )

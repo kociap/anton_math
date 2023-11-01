@@ -9,7 +9,7 @@
 #include <anton/types.hpp>
 
 extern "C" {
-    #if ANTON_COMPILER_MSVC
+    #if ANTON_COMPILER_CL
         // intrin.h
 
         unsigned char _BitScanReverse(unsigned long *_Index, unsigned long _Mask);
@@ -203,7 +203,7 @@ namespace anton::math {
     // Counts the number of set bits in v.
     //
     [[nodiscard]] inline u8 popcount(u8 v) {
-        #if ANTON_COMPILER_MSVC
+        #if ANTON_COMPILER_CL
             return _mm_popcnt_u32(v);
         #else
             return __builtin_popcount(v);
@@ -211,7 +211,7 @@ namespace anton::math {
     }
 
     [[nodiscard]] inline u16 popcount(u16 v) {
-        #if ANTON_COMPILER_MSVC
+        #if ANTON_COMPILER_CL
             return _mm_popcnt_u32(v);
         #else
             return __builtin_popcount(v);
@@ -219,7 +219,7 @@ namespace anton::math {
     }
 
     [[nodiscard]] inline u32 popcount(u32 v) {
-        #if ANTON_COMPILER_MSVC
+        #if ANTON_COMPILER_CL
             return _mm_popcnt_u32(v);
         #else
             return __builtin_popcount(v);
@@ -227,7 +227,7 @@ namespace anton::math {
     }
 
     [[nodiscard]] inline u64 popcount(u64 v) {
-        #if ANTON_COMPILER_MSVC
+        #if ANTON_COMPILER_CL
             return _mm_popcnt_u64(v);
         #else
             return __builtin_popcountll(v);
@@ -241,7 +241,7 @@ namespace anton::math {
     // The number of leading zeros. If the number is 0, returns bit count.
     //
     [[nodiscard]] inline u8 clz(u8 v) {
-        #if ANTON_COMPILER_MSVC
+        #if ANTON_COMPILER_CL
             unsigned long index = 0;
             if(_BitScanReverse(&index, v)) {
                 return 7 - (u8)index;
@@ -254,7 +254,7 @@ namespace anton::math {
     }
 
     [[nodiscard]] inline u16 clz(u16 v) {
-        #if ANTON_COMPILER_MSVC
+        #if ANTON_COMPILER_CL
             unsigned long index = 0;
             if(_BitScanReverse(&index, v)) {
                 return 15 - (u16)index;
@@ -267,7 +267,7 @@ namespace anton::math {
     }
 
     [[nodiscard]] inline u32 clz(u32 v) {
-        #if ANTON_COMPILER_MSVC
+        #if ANTON_COMPILER_CL
             unsigned long index = 0;
             if(_BitScanReverse(&index, v)) {
                 return 31 - index;
@@ -280,7 +280,7 @@ namespace anton::math {
     }
 
     [[nodiscard]] inline u64 clz(u64 v) {
-        #if ANTON_COMPILER_MSVC
+        #if ANTON_COMPILER_CL
             unsigned long index = 0;
             if(_BitScanReverse64(&index, v)) {
                 return 63 - index;
