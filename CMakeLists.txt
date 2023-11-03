@@ -42,16 +42,13 @@ set_target_properties(anton_math
 )
 
 # Detect MSVC as it requires different intrinsics.
-
-# cl (MSVC)
-string(FIND "${CMAKE_CXX_COMPILER}" "cl" ANTON_COMPILER_CL)
-if(ANTON_COMPILER_CL GREATER -1)
-    set(ANTON_COMPILER_CL ON)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    set(ANTON_COMPILER_MSVC ON)
 else()
-    set(ANTON_COMPILER_CL OFF)
+    set(ANTON_COMPILER_MSVC OFF)
 endif()
 
 target_compile_definitions(anton_math
     PUBLIC
-    ANTON_COMPILER_CL=$<BOOL:${ANTON_COMPILER_CL}>
+    ANTON_COMPILER_MSVC=$<BOOL:${ANTON_COMPILER_MSVC}>
 )
